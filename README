@@ -1,0 +1,35 @@
+===============================================================
+Solidarity Bros. Chess Game
+By Chris Wang, Dmitriy Chukhin, and Jim Ladd
+
+Dec 28, 2013
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+
+***************
+* How to Play *
+***************
+
+ To start a game, simply type:
+ $ ./main.py
+
+ Each player will be prompted for their move:
+
+ Player 1> 
+
+ Moves consist of a four-letter sequence where
+ the first pair of letters gives the coordinates of the
+ piece to move (e.g. 'b1') and the second pair of letters
+ gives the destination of the piece. (e.g. 'c3').
+ To move the white player's knight on the first turn,
+ you would type:
+
+ Player 1> b1c3
+
+ After hitting enter, the game will show you the new state of 
+ the board.
+
+ The game operates using the normal rules of Chess;
+ The white player always makes the first move in the
+ game and only legal moves are allowed.
+
+ To quit the game, type 'quit'.
