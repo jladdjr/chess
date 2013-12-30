@@ -70,13 +70,13 @@ class ChessTest(unittest.TestCase):
                       +----+----+----+----+----+----+----+----+
                     2 |    |    |    |  p |    |    |    |  p |
                       +----+----+----+----+----+----+----+----+
-                    1 |    |    |  b |    |    |    |    |    |
+                    1 |  k |    |  b |    |    |    |    |    |
                       +----+----+----+----+----+----+----+----+
 
                          a    b    c    d    e    f    g    h
     """
 
-    board2         = [ ['' ,'' ,'' ,''  ,'',''  ,'*p',''  ],
+    board2         = [ ['k','' ,'' ,''  ,'',''  ,'*p',''  ],
                        ['' ,'' ,'r',''  ,'',''  ,''  ,'*n'],
                        ['b','' ,'' ,''  ,'','*b',''  ,''  ],
                        ['' ,'p','' ,'q' ,'',''  ,''  ,''  ],
@@ -96,6 +96,41 @@ class ChessTest(unittest.TestCase):
                        ['n','p','',''  ,'','','*p','*n'],
                        ['r','p','',''  ,'','','*p','*r'] ]
 
+    check1         = [ ['r','p','*r',''  ,''  ,''  ,'*p',''  ],
+                       ['n','' ,''  ,''  ,''  ,''  ,'*p','*n'],
+                       ['b','p',''  ,''  ,''  ,'*q','*p','*b'],
+                       ['q','' ,''  ,'p' ,''  ,''  ,'*p',''  ],
+                       ['' ,'' ,'p' ,'k' ,''  ,''  ,'*p','*k'],
+                       ['b','p',''  ,''  ,''  ,''  ,'*p','*b'],
+                       ['n','p',''  ,''  ,''  ,''  ,'*p','*n'],
+                       ['r','p','*r',''  ,''  ,''  ,''  ,''  ] ]
+
+    check2         = [ ['' ,'p',''  ,''  ,''  ,''  ,'*p',''  ],
+                       ['n','' ,''  ,''  ,''  ,''  ,'*p','*n'],
+                       ['b','p',''  ,''  ,''  ,''  ,'*p','*b'],
+                       ['q','p','r' ,''  ,''  ,''  ,'*p','*q'],
+                       ['k','p','r' ,''  ,'*k',''  ,'*p',''  ],
+                       ['b','' ,''  ,'p' ,''  ,''  ,'*p','*b'],
+                       ['n','p',''  ,''  ,''  ,''  ,'*p','*n'],
+                       ['' ,'p',''  ,''  ,''  ,''  ,''  ,''  ] ]
+
+    checkmate1     = [ ['r','p','*r',''  ,''  ,''  ,'*p',''  ],
+                       ['n','' ,''  ,''  ,''  ,''  ,'*p','*n'],
+                       ['b','p',''  ,''  ,''  ,'*q','*p','*b'],
+                       ['q','p' ,'' ,'k' ,''  ,''  ,'*p',''  ],
+                       ['' ,'p',''  ,''  ,''  ,''  ,'*p','*k'],
+                       ['b','p',''  ,''  ,''  ,''  ,'*p','*b'],
+                       ['n','p',''  ,''  ,''  ,''  ,'*p','*n'],
+                       ['r','p',''  ,''  ,'*r',''  ,''  ,''  ] ]
+
+    checkmate2     = [ ['' ,'' ,'' ,'' ,''  ,''  ,'*b',''],
+                       ['' ,'' ,'' ,'' ,''  ,''  ,''  ,''],
+                       ['' ,'' ,'' ,'' ,'q' ,''  ,''  ,''],
+                       ['' ,'' ,'' ,'' ,''  ,'*k',''  ,''],
+                       ['' ,'' ,'' ,'' ,'p' ,''  ,''  ,''],
+                       ['' ,'' ,'' ,'' ,''  ,''  ,''  ,''],
+                       ['' ,'' ,'' ,'' ,''  ,''  ,'r' ,''],
+                       ['' ,'' ,'' ,'' ,''  ,'r' ,''  ,''] ]
 
     def setUp(self):
         """
@@ -642,7 +677,49 @@ class ChessTest(unittest.TestCase):
     # Tests for BoardAnalyzer class #
     #################################
 
-    #Coming soon..         
+    #Tests for isCheckMage()
+
+    """
+    def test_is_check_mate(self):
+        from board_analyzer import BoardAnalyzer
+        a = BoardAnalyzer()
+
+        self.assertTrue(a.isCheckMate(ChessTest.checkmate1, 1))
+        self.assertTrue(a.isCheckMate(ChessTest.checkmate2, 2))
+
+    def test_is_check_mate_negative(self):
+        from board_analyzer import BoardAnalyzer
+        a = BoardAnalyzer()
+
+        self.assertFalse(a.isCheckMate(ChessTest.board1, 1))
+        self.assertFalse(a.isCheckMate(ChessTest.board1, 2))
+        self.assertFalse(a.isCheckMate(ChessTest.board2, 1))
+        self.assertFalse(a.isCheckMate(ChessTest.board2, 2))
+        self.assertFalse(a.isCheckMate(ChessTest.check1, 1))
+        self.assertFalse(a.isCheckMate(ChessTest.check1, 2))
+        self.assertFalse(a.isCheckMate(ChessTest.check2, 1))
+        self.assertFalse(a.isCheckMate(ChessTest.check2, 2))
+    """
+
+    #Tests for isCheck()
+
+    """
+    def test_is_check(self):
+        from board_analyzer import BoardAnalyzer
+        a = BoardAnalyzer()
+    
+        self.assertTrue(a.isCheck(ChessTest.check1, 1))
+        self.assertTrue(a.isCheck(ChessTest.check2, 2))
+        
+    def test_is_check_negative(self):
+        from board_analyzer import BoardAnalyzer
+        a = BoardAnalyzer()
+
+        self.assertFalse(a.isCheck(ChessTest.board1, 1))
+        self.assertFalse(a.isCheck(ChessTest.board1, 2))
+        self.assertFalse(a.isCheck(ChessTest.board2, 1))
+        self.assertFalse(a.isCheck(ChessTest.board2, 2))
+    """
 
 if __name__ == '__main__':
     unittest.main(buffer=True)      #User buffer option to supress output
