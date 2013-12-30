@@ -84,6 +84,19 @@ class ChessTest(unittest.TestCase):
                        ['' ,'' ,'' ,''  ,'','*p',''  ,''  ],
                        ['' ,'' ,'' ,''  ,'',''  ,'*p',''  ],
                        ['' ,'p','' ,''  ,'',''  ,''  ,'*r'] ]
+
+
+    #More boards (no illustrations given)
+    board3        =  [ ['r','p','',''  ,'','','*p',''  ],
+                       ['n','p','',''  ,'','','*p','*n'],
+                       ['b','p','',''  ,'','','*p','*b'],
+                       ['q','p','','*r','','','*p','*q'],
+                       ['' ,'p','','k' ,'','','*p','*k'],
+                       ['b','p','',''  ,'','','*p','*b'],
+                       ['n','p','',''  ,'','','*p','*n'],
+                       ['r','p','',''  ,'','','*p','*r'] ]
+
+
     def setUp(self):
         """
         Setup test fixture.
@@ -376,6 +389,14 @@ class ChessTest(unittest.TestCase):
         #Black pawn, forward one space from non-default position
         self.assertTrue(b._isLegalMoveForPawn("f6", "f5"))
 
+        b._board = ChessTest.board1
+    
+        #Legal move to kill
+        self.assertTrue(b._isLegalMoveForPawn("d5", "e6"))
+
+        #Legal move to kill 2
+        self.assertTrue(b._isLegalMoveForPawn("d5", "c6"))
+
     def test_is_legal_move_for_pawn_negative_test(self):
         from board import Board
 
@@ -409,29 +430,212 @@ class ChessTest(unittest.TestCase):
         #White pawn, far across board 
         self.assertFalse(b._isLegalMoveForPawn("d2", "f8"))
 
-    def test_is_legal_move_for_pawn_move_to_kill(self):
-        from board import Board
-        b = Board()
-        b._board = ChessTest.board1
+        #Cannot kill your own piece 
+        self.assertFalse(b._isLegalMoveForPawn("d2", "e3"))
 
-        self.assertTrue(b._isLegalMoveForPawn("d5", "e6"))
-        self.assertTrue(b._isLegalMoveForPawn("d5", "c6"))
-
-    def test_is_legal_move_for_pawn_illegal_kill(self):
-        from board import Board
-        b = Board()
         b._board = ChessTest.board1
 
         #Cannot kill piece by moving forward (must move diagnoally)
         self.assertFalse(b._isLegalMoveForPawn("g4", "g5"))
         
-    def test_is_legal_move_for_pawn_illegal_kill2(self):
+    """
+
+    # Tests for isLegalMoveForRook()
+
+    """
+    def test_is_legal_move_for_rook(self):
         from board import Board
         b = Board()
         b._board = ChessTest.board2
 
-        #Cannot kill your own piece 
-        self.assertFalse(b._isLegalMoveForPawn("d2", "e3"))
+        #Left
+        self.assertTrue(b._isLegalMoveForRook("b3","a3"))
+        
+        #Right
+        self.assertTrue(b._isLegalMoveForRook("b3","d3"))
+
+        #Up
+        self.assertTrue(b._isLegalMoveForRook("b3","b7"))
+
+        #Down
+        self.assertTrue(b._isLegalMoveForRook("h8","h4"))
+
+        #Legal kill
+        self.assertTrue(b._isLegalMoveForRook("b3","b8"))
+
+    def test_is_legal_move_for_rook_negative_test(self):
+        from board import Board
+        b = Board()
+        b._board = ChessTest.board2
+
+        #Diagnoal
+        self.assertFalse(b._isLegalMoveForRook("b3","a4"))
+
+        #Move to occupied space
+        self.assertFalse(b._isLegalMoveForRook("b3","e3"))
+
+        #Path blocked by friendly piece
+        self.assertFalse(b._isLegalMoveForRook("h8","a8"))
+
+        #Path blocked by enemy piece
+        self.assertFalse(b._isLegalMoveForRook("h8","h1"))
+    """
+
+    # Tests for isLegalMoveForKnight()
+    
+    """
+    def test_is_legal_move_for_knight(self):
+        from board import Board
+        b = Board()
+        b._board = ChessTest.board2
+
+        #Forward and right
+        self.assertTrue(b._isLegalMoveForKnight("e3","f5"))
+        
+        #Forward and left
+        self.assertTrue(b._isLegalMoveForKnight("e3","d5"))
+
+        #Right and up
+        self.assertTrue(b._isLegalMoveForKnight("e3","g4"))
+
+        #Left and down
+        self.assertTrue(b._isLegalMoveForKnight("e3","c2"))
+
+        b._board = ChessTest.board1
+
+        #Legal kill
+        self.assertTrue(b._isLegalMoveForKnight("f3","g5"))
+
+    def test_is_legal_move_for_knight_negative_test(self):
+        from board import Board
+        b = Board()
+        b._board = ChessTest.board1
+
+        #Move left two
+        self.assertFalse(b._isLegalMoveForKnight("f3","d3"))
+
+        #Move to occupied space
+        self.assertFalse(b._isLegalMoveForKnight("f3","e1"))
+    """
+
+    # Tests for isLegalMoveForBishop()
+
+    """
+    def test_is_legal_move_for_bishop(self):
+        from board import Board
+        b = Board()
+        b._board = ChessTest.board2
+
+        #Move up and to the left
+        self.assertTrue(b._isLegalMoveForBishop("c1","a3"))
+        
+        #Move down and to the right
+        self.assertTrue(b._isLegalMoveForBishop("c6","e8"))
+
+        b._board = ChessTest.board1
+
+        #Legal kill
+        self.assertTrue(b._isLegalMoveForBishop("f8","b4"))
+
+    def test_is_legal_move_for_bishop_negative_test(self):
+        from board import Board
+        b = Board()
+        b._board = ChessTest.board1
+
+        #Move left
+        self.assertFalse(b._isLegalMoveForBishop("c8","b8"))
+
+        #Move to occupied space
+        self.assertFalse(b._isLegalMoveForBishop("c8","b7"))
+
+        #Path blocked by friendly piece
+        self.assertFalse(b._isLegalMoveForBishop("f1","d3"))
+
+        #Path blocked by enemy piece
+        #(Even though this would otherwise be a legitimate kill)
+        self.assertFalse(b._isLegalMoveForBishop("f8","a3"))
+    """
+
+    # Tests for isLegalMoveForQueen()
+    
+    """
+    def test_is_legal_move_for_queen(self):
+        from board import Board
+        b = Board()
+        b._board = ChessTest.board1
+
+        #Move left
+        self.assertTrue(b._isLegalMoveForQueen("f4","e4"))
+
+        #Move right
+        self.assertTrue(b._isLegalMoveForQueen("d4","e4"))
+
+        #Move up and left
+        self.assertTrue(b._isLegalMoveForQueen("d4","a7"))
+
+        #Move down and right
+        self.assertTrue(b._isLegalMoveForQueen("f4","g3"))
+
+        #Legal kill
+        self.assertTrue(b._isLegalMoveForQueen("f4","h2"))
+
+        #Legal kill2
+        self.assertTrue(b._isLegalMoveForQueen("d4","f4"))
+
+        #Legal kill3
+        self.assertTrue(b._isLegalMoveForQueen("f4","c1"))
+
+    def test_is_legal_move_for_queen_negative_test(self):
+        from board import Board
+        b = Board()
+        b._board = ChessTest.board1
+
+        #Move like horse
+        self.assertFalse(b._isLegalMoveForQueen("d4","f5"))
+
+        #Move to occupied space
+        self.assertFalse(b._isLegalMoveForQueen("f4","g5"))
+
+        #Path blocked by friendly piece
+        self.assertFalse(b._isLegalMoveForQueen("f4","g6"))
+
+        #Path blocked by enemy piece
+        #(Even though this would otherwise be a legitimate kill)
+        self.assertFalse(b._isLegalMoveForQueen("f4","b4"))
+    """
+
+    # Tests for isLegalMoveForKing()
+
+    """
+    def test_is_legal_move_for_king(self):
+        from board import Board
+        b = Board()
+        b._board = ChessTest.board1
+
+        #Move left
+        self.assertTrue(b._isLegalMoveForKing("e8","d8"))
+
+        #Move up and left 
+        self.assertTrue(b._isLegalMoveForKing("e1","d2"))
+
+        #Move down 
+        self.assertTrue(b._isLegalMoveForKing("e8","e7"))
+
+        b._board = ChessTest.board3
+
+        #Legal kill
+        self.assertTrue(b._isLegalMoveForKing("e4","d4"))
+
+    def test_is_legal_move_for_king_negative_test(self):
+        from board import Board
+        b = Board()
+        b._board = ChessTest.board1
+
+        #Move diagnoally two spaces
+        self.assertFalse(b._isLegalMoveForKing("e1","c3"))
+
+        #Move to occupied space
+        self.assertFalse(b._isLegalMoveForKing("e8","f8"))
     """
 
     #################################
