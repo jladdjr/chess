@@ -33,3 +33,29 @@ $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
  game and only legal moves are allowed.
 
  To quit the game, type 'quit'.
+
+
+***************
+* How to Test *
+***************
+
+ To test the game, type:
+ $ ./test.py
+
+ You should see output similar to the following:
+
+ Ran 3 tests in 0.003s
+ 
+ OK
+
+ (The number of tests may vary)
+
+
+****************
+* Requirements *
+****************
+
+ To run the tests (test.py), you must have
+ the mock library installed:
+
+ $ sudo pip install mock

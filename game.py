@@ -3,6 +3,7 @@
 import sys
 
 from board import Board
+from board_analyzer import BoardAnalyzer
 
 class Game(object):
 
@@ -11,10 +12,11 @@ class Game(object):
         Initialize new game.
         """
         #Create new game board
-        self.board = Board() 
+        self._board = Board() 
+        self._boardAnalyzer = BoardAnalyzer()
 
         #Record whose turn it is
-        self.currentPlayer = 1      # 1 => White, 2 => Black
+        self._currentPlayer = 1      # 1 => White, 2 => Black
 
         #Print welcome text
         welcome = "Welcome to Solidarity Bros. Chess!\n" \
@@ -53,7 +55,7 @@ class Game(object):
 
     def _getPlayersNextMove(self):
         while True:
-            prompt = "Player %s> " % str(self.currentPlayer)
+            prompt = "Player %s> " % str(self._currentPlayer)
             response = raw_input(prompt)
 
             #Validate response

@@ -8,11 +8,11 @@ class Board(object):
         """
         #Board is a list of lists
         #To access element, write
-        # self.board[<col#>][<row#>]
+        # self._board[<col#>][<row#>]
         #
         #See http://i.stack.imgur.com/7KSiN.png
         #for picture of board layout 
-        self.board = [ ['r','p','','','','','*p','*r'],
+        self._board = [ ['r','p','','','','','*p','*r'],
                        ['n','p','','','','','*p','*n'],
                        ['b','p','','','','','*p','*b'],
                        ['q','p','','','','','*p','*q'],
@@ -22,10 +22,19 @@ class Board(object):
                        ['r','p','','','','','*p','*r'] ]
 
         #Last player to move
-        self.lastPlayer = None
+        self._lastPlayer = None
 
         #Last move
-        self.lastMove = None
+        self._lastMove = None
+
+    def getBoard(self):
+        """
+        Returns a copy of the current board's
+        state.
+
+        @return:    Copy of board (as list of lists)
+        """
+        return self._board
 
     def isLegalMove(self, orig, dest):
         """
@@ -41,7 +50,8 @@ class Board(object):
         @param dest:        Destination. Final location of game piece. (e.g. "b6")
         @return:            True if move is legal, False otherwise.
         """
-        pass
+        #(Replace this with a real test)
+        return True
 
     def pieceOwnedBy(self, loc):
         """
@@ -56,37 +66,43 @@ class Board(object):
         """
         Helper method for determining if move is legal for rook.
         """
-        pass
+        #(Replace this with a real test)
+        return True
 
     def _isLegalMoveForKnight(self, orig, dest):
         """
         Helper method for determining if move is legal for knight.
         """
-        pass
+        #(Replace this with a real test)
+        return True
 
     def _isLegalMoveForBishop(self, orig, dest):
         """
         Helper method for determining if move is legal for bishop.
         """
-        pass
+        #(Replace this with a real test)
+        return True
 
     def _isLegalMoveForQueen(self, orig, dest):
         """
         Helper method for determining if move is legal for queen.
         """
-        pass
+        #(Replace this with a real test)
+        return True
 
     def _isLegalMoveForKing(self, orig, dest):
         """
         Helper method for determining if move is legal for king.
         """
-        pass
+        #(Replace this with a real test)
+        return True
 
     def _isLegalMoveForPawn(self, orig, dest):
         """
         Helper method for determining if move is legal for pawn.
         """
-        pass
+        #(Replace this with a real test)
+        return True
 
     ################################################################
 
@@ -98,24 +114,13 @@ class Board(object):
         @param orig:        Origin. Starting location of game piece. (e.g. "b5")
         @param dest:        Destination. Final location of game piece. (e.g. "b6")
         """
-        pass
 
-    ################################################################
+        #Note: You can write this method before writing all of the
+        #isLegalMove methods (since they all return True right now)
 
-    def isCheckMate(self):
-        """
-        Determines if game has ended.
+        #In order for this method's test to pass, you must
+        #call isLegalMove though.
 
-        @return True if game has ended, False otherwise.
-        """
-        pass
-
-    def isCheck(self):
-        """
-        Determines if a king is in check. 
-
-        @return True if king is in check, False otherwise. 
-        """
         pass
 
     ################################################################
@@ -135,7 +140,7 @@ class Board(object):
             col = 0
             text = "%s |" % str(row + 1)
             while col < 8:
-                piece = self.board[col][row]
+                piece = self._board[col][row]
                 text += " %2s |" % piece
                 col = col + 1
             print text
