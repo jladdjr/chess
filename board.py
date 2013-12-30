@@ -36,7 +36,7 @@ class Board(object):
         """
         return self._board
 
-    def isLegalMove(self, orig, dest):
+    def isLegalMove(self, move):
         """
         Determines if a move is legal or not.
         A move is not legal if any of the following is true:
@@ -46,8 +46,7 @@ class Board(object):
          d) the move is not legal for the game piece
          e) a game piece is blocking the path of the move  
 
-        @param orig:        Origin. Starting location of game piece. (e.g. "b5")
-        @param dest:        Destination. Final location of game piece. (e.g. "b6")
+        @param move:        Four letter combination representing move. (e.g. "b3c4") 
         @return:            True if move is legal, False otherwise.
         """
         #(Replace this with a real test)
@@ -62,42 +61,42 @@ class Board(object):
         """
         pass
 
-    def _isLegalMoveForRook(self, orig, dest):
+    def _isLegalMoveForRook(self, move):
         """
         Helper method for determining if move is legal for rook.
         """
         #(Replace this with a real test)
         return True
 
-    def _isLegalMoveForKnight(self, orig, dest):
+    def _isLegalMoveForKnight(self, move):
         """
         Helper method for determining if move is legal for knight.
         """
         #(Replace this with a real test)
         return True
 
-    def _isLegalMoveForBishop(self, orig, dest):
+    def _isLegalMoveForBishop(self, move):
         """
         Helper method for determining if move is legal for bishop.
         """
         #(Replace this with a real test)
         return True
 
-    def _isLegalMoveForQueen(self, orig, dest):
+    def _isLegalMoveForQueen(self, move):
         """
         Helper method for determining if move is legal for queen.
         """
         #(Replace this with a real test)
         return True
 
-    def _isLegalMoveForKing(self, orig, dest):
+    def _isLegalMoveForKing(self, move):
         """
         Helper method for determining if move is legal for king.
         """
         #(Replace this with a real test)
         return True
 
-    def _isLegalMoveForPawn(self, orig, dest):
+    def _isLegalMoveForPawn(self, move):
         """
         Helper method for determining if move is legal for pawn.
         """
@@ -106,7 +105,7 @@ class Board(object):
 
     ################################################################
 
-    def movePiece(self, orig, dest):
+    def movePiece(self, move):
         """
         Moves chess piece.
 
