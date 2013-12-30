@@ -110,8 +110,7 @@ class Board(object):
         Moves chess piece.
 
         @precondition:      isLegalMove() must be True.
-        @param orig:        Origin. Starting location of game piece. (e.g. "b5")
-        @param dest:        Destination. Final location of game piece. (e.g. "b6")
+        @param move:        Four letter combination representing move. (e.g. "b3c4") 
         """
 
         #Note: You can write this method before writing all of the
