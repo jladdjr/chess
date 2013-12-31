@@ -1,5 +1,6 @@
 #!/usr/bin/python
 
+import os
 import sys
 
 import constants
@@ -20,6 +21,7 @@ class Game(object):
         self._currentPlayer = constants.WHITE_PLAYER 
 
         #Print welcome text
+        os.system('clear')
         welcome = "Welcome to Solidarity Bros. Chess!\n" \
           "by Chris Wang, Dmitriy Chukhin, and Jim Ladd\n" \
           "\n" \
@@ -33,6 +35,10 @@ class Game(object):
         """
         Main game loop.
         """
+
+        #Print initial board
+        self._board.printBoard()
+
         while True:
             self._nextTurn()
 
@@ -47,6 +53,8 @@ class Game(object):
         #If move is legal, make next move
 
         #Print board
+        os.system('clear')
+        self._board.printBoard()
 
         #End game if king is in check-mate
 
@@ -56,7 +64,12 @@ class Game(object):
 
     def _getPlayersNextMove(self):
         while True:
-            prompt = "Player %s> " % str(self._currentPlayer)
+            playerColor = ""
+            if self._currentPlayer == constants.WHITE_PLAYER:
+                playerColor = "White"
+            else:
+                playerColor = "Black"
+            prompt = "%s> " % playerColor
             response = raw_input(prompt)
 
             #Validate response
