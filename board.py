@@ -13,19 +13,16 @@ class Board(object):
         #See http://i.stack.imgur.com/7KSiN.png
         #for picture of board layout 
         self._board = [ ['r','p','','','','','*p','*r'],
-                       ['n','p','','','','','*p','*n'],
-                       ['b','p','','','','','*p','*b'],
-                       ['q','p','','','','','*p','*q'],
-                       ['k','p','','','','','*p','*k'],
-                       ['b','p','','','','','*p','*b'],
-                       ['n','p','','','','','*p','*n'],
-                       ['r','p','','','','','*p','*r'] ]
+                        ['n','p','','','','','*p','*n'],
+                        ['b','p','','','','','*p','*b'],
+                        ['q','p','','','','','*p','*q'],
+                        ['k','p','','','','','*p','*k'],
+                        ['b','p','','','','','*p','*b'],
+                        ['n','p','','','','','*p','*n'],
+                        ['r','p','','','','','*p','*r'] ]
 
-        #Last player to move
-        self._lastPlayer = None
-
-        #Last move
-        self._lastMove = None
+        #Current player
+        self._currentPlayer = 1      # 1 => White, 2 => Black
 
     def getBoard(self):
         """
