@@ -225,37 +225,31 @@ class ChessTest(unittest.TestCase):
     def test_move_piece_white_knight(self):
         from board import Board
         b = Board()
-        b._isLegalMoveForKnight = MagicMock(return_value=True)
        
         self.assertEqual(b._board[1][0], "n")
         b.movePiece("b1","c3") 
         self.assertEqual(b._board[1][0], "")
         self.assertEqual(b._board[2][2], "n")
-        b._isLegalMoveForKnight.assert_called_with("b1c3")
 
     def test_move_piece_black_pawn(self):
         from board import Board
         b = Board()
-        b._isLegalMoveForPawn = MagicMock(return_value=True)
        
         self.assertEqual(b._board[4][6], "*p")
         b.movePiece("e7","e6") 
         self.assertEqual(b._board[4][6], "")
         self.assertEqual(b._board[4][5], "*p")
-        b._isLegalMoveForPawn.assert_called_with("e7e6")
 
     def test_move_piece_queen_overtakes_queen(self):
         from board import Board
         b = Board()
         b._board      = ChessTest.board1
-        b._isLegalMoveForQueen = MagicMock(return_value=True)
        
         self.assertEqual(b._board[3][3], "q")
         self.assertEqual(b._board[5][3], "*q")
         b.movePiece("d4","f4") 
         self.assertEqual(b._board[3][3], "")
         self.assertEqual(b._board[5][3], "q")
-        b._isLegalMoveForQueen.assert_called_with("d4f4")
     """
 
     #Tests for isLegalMove()

@@ -116,9 +116,6 @@ class Board(object):
         #Note: You can write this method before writing all of the
         #isLegalMove methods (since they all return True right now)
 
-        #In order for this method's test to pass, you must
-        #call isLegalMove though.
-
         pass
 
     ################################################################
