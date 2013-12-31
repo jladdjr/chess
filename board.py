@@ -49,7 +49,7 @@ class Board(object):
         #(Replace this with a real test)
         return True
 
-    def pieceOwnedBy(self, loc):
+    def pieceOwner(self, loc):
         """
         Determines which player owns a given piece.
 
