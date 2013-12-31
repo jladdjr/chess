@@ -227,7 +227,7 @@ class ChessTest(unittest.TestCase):
         b = Board()
        
         self.assertEqual(b._board[1][0], "n")
-        b.movePiece("b1","c3") 
+        b.movePiece("b1c3") 
         self.assertEqual(b._board[1][0], "")
         self.assertEqual(b._board[2][2], "n")
 
@@ -236,7 +236,7 @@ class ChessTest(unittest.TestCase):
         b = Board()
        
         self.assertEqual(b._board[4][6], "*p")
-        b.movePiece("e7","e6") 
+        b.movePiece("e7e6") 
         self.assertEqual(b._board[4][6], "")
         self.assertEqual(b._board[4][5], "*p")
 
@@ -247,7 +247,7 @@ class ChessTest(unittest.TestCase):
        
         self.assertEqual(b._board[3][3], "q")
         self.assertEqual(b._board[5][3], "*q")
-        b.movePiece("d4","f4") 
+        b.movePiece("d4f4") 
         self.assertEqual(b._board[3][3], "")
         self.assertEqual(b._board[5][3], "q")
     """
