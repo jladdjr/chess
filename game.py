@@ -2,6 +2,7 @@
 
 import sys
 
+import constants
 from board import Board
 from board_analyzer import BoardAnalyzer
 
@@ -16,7 +17,7 @@ class Game(object):
         self._boardAnalyzer = BoardAnalyzer()
 
         #Record whose turn it is
-        self._currentPlayer = 1      # 1 => White, 2 => Black
+        self._currentPlayer = constants.WHITE_PLAYER 
 
         #Print welcome text
         welcome = "Welcome to Solidarity Bros. Chess!\n" \

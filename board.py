@@ -1,5 +1,7 @@
 #!/usr/bin/python
 
+import constants
+
 class Board(object):
 
     def __init__(self):
@@ -22,7 +24,7 @@ class Board(object):
                         ['r','p','','','','','*p','*r'] ]
 
         #Current player
-        self._currentPlayer = 1      # 1 => White, 2 => Black
+        self._currentPlayer = constants.WHITE_PLAYER 
 
     def getBoard(self):
         """
@@ -54,7 +56,7 @@ class Board(object):
         Determines which player owns a given piece.
 
         @param loc:         Location on game board (e.g. "b5")
-        @return:            Player number (1 or 2).
+        @return:            Player (e.g. constants.WHITE_PLAYER)
         """
         pass
 
