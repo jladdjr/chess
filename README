@@ -14,7 +14,7 @@ $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 
  Each player will be prompted for their move:
 
- Player 1> 
+ White> 
 
  Moves consist of a four-letter sequence where
  the first pair of letters gives the coordinates of the
@@ -23,7 +23,7 @@ $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
  To move the white player's knight on the first turn,
  you would type:
 
- Player 1> b1c3
+ White> b1c3
 
  After hitting enter, the game will show you the new state of 
  the board.
@@ -44,7 +44,7 @@ $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 
  You should see output similar to the following:
 
- Ran 3 tests in 0.003s
+ Ran 30 tests in 0.005s
  
  OK
 
