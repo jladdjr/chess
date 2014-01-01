@@ -382,9 +382,9 @@ class ChessTest(unittest.TestCase):
         b._currentPlayer = constants.BLACK_PLAYER
         self.assertTrue(b.isLegalMove("f4c1"))
 
-        #White bishop kills black pawn
+        #White bishop kills black queen
         b._currentPlayer = constants.WHITE_PLAYER
-        self.assertTrue(b.isLegalMove("c1h7"))
+        self.assertTrue(b.isLegalMove("c1f4"))
 
     def test_is_legal_move_blocked_move(self):
         from board import Board
@@ -426,7 +426,7 @@ class ChessTest(unittest.TestCase):
 
         #Knight moves forward three spaces to kill black pawn
         b._currentPlayer = constants.WHITE_PLAYER
-        self.assertFalse(b.isLegalmove("a3a6"))
+        self.assertFalse(b.isLegalMove("a3a6"))
     """
 
     #Tests for _isLegalMoveForPawn()
