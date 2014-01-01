@@ -50,7 +50,13 @@ class Board(object):
         @return:            True if move is legal, False otherwise.
         """
         #(Replace this with a real test)
-        return True
+        validity=True
+
+        #a) piece is not actually moved (e.g. 'a5a5') 
+        if move[0:2]==move[2:4]:
+            return False
+        else:
+            return True
 
     def pieceOwner(self, loc):
         """
