@@ -402,7 +402,7 @@ class ChessTest(unittest.TestCase):
         self.assertFalse(b.isLegalMove("g5g4"))
 
         #Knight moves forward three spaces to kill black pawn
-        self.assertFalse(b.isLegalmove("a3","a6"))
+        self.assertFalse(b.isLegalmove("a3a6"))
     """
 
     #Tests for _isLegalMoveForPawn()
