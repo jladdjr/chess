@@ -1,5 +1,7 @@
 #!/usr/bin/python
 
+import constants
+
 class BoardAnalyzer(object):
     """
     Analyzes board state.
@@ -10,7 +12,7 @@ class BoardAnalyzer(object):
         Determines if game has ended.
 
         @param board:   A list of lists representing the board state.
-        @param player:  1 => White, 2 => Black
+        @param player:  Player (e.g. constants.WHITE_PLAYER)
         @return True if game has ended, False otherwise.
         """
         #(Replace this with a real test)
@@ -21,7 +23,7 @@ class BoardAnalyzer(object):
         Determines if a king is in check.
 
         @param board:   A list of lists representing the board state.
-        @param player:  1 => White, 2 => Black
+        @param player:  Player (e.g. constants.WHITE_PLAYER)
         @return True if king is in check, False otherwise.
         """
         #(Replace this with a real test)
