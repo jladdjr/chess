@@ -334,7 +334,7 @@ class ChessTest(unittest.TestCase):
         self.assertFalse(b.isLegalMove("d2d1"))
 
         #Rook - move diagonally
-        self.assertFalse(b.isLegalMove("b3b4"))
+        self.assertFalse(b.isLegalMove("b3c4"))
 
         #Knight - move forward two
         self.assertFalse(b.isLegalMove("e3e5"))
