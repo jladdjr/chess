@@ -39,11 +39,12 @@ class Board(object):
         """
         Determines if a move is legal or not.
         A move is not legal if any of the following is true:
-         a) move refers to empty space
-         b) the game piece is not owned by the current player
-         c) a game piece owned by the same player is at the destination
-         d) the move is not legal for the game piece
-         e) a game piece is blocking the path of the move  
+         a) piece is not actually moved (e.g. 'a5a5')
+         b) move refers to empty space
+         c) the game piece is not owned by the current player
+         d) a game piece owned by the same player is at the destination
+         e) the move is not legal for the game piece
+         f) a game piece is blocking the path of the move  
 
         @param move:        Four letter combination representing move. (e.g. "b3c4") 
         @return:            True if move is legal, False otherwise.

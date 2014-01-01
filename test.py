@@ -337,6 +337,13 @@ class ChessTest(unittest.TestCase):
         #King - move forward two
         self.assertFalse(b.isLegalMove("e7e5"))
 
+    def test_is_legal_move_piece_not_moved(self):
+        from board import Board
+        b = Board()
+        b._board = ChessTest.board2
+
+        self.assertFalse(b.isLegalMove("c1c1"))
+
     def test_is_legal_move_moving_into_occupied_space(self):
         from board import Board
         b = Board()
