@@ -260,6 +260,7 @@ class ChessTest(unittest.TestCase):
     """
     def test_is_legal_move(self):
         from board import Board
+        import constants
         b = Board()
         b._board = ChessTest.board2
 
@@ -267,24 +268,30 @@ class ChessTest(unittest.TestCase):
         self.assertTrue(b.isLegalMove("d2d3"))
         
         #Rook - move forward several spaces
+        b._currentPlayer = constants.BLACK_PLAYER
         self.assertTrue(b.isLegalMove("h8h4"))
 
         #Rook - move across several spaces
         self.assertTrue(b.isLegalMove("h8d8"))
 
         #Knight - move forward and right
+        b._currentPlayer = constants.WHITE_PLAYER
         self.assertTrue(b.isLegalMove("e3f5"))
 
         #Knight - move left and up
+        b._currentPlayer = constants.BLACK_PLAYER
         self.assertTrue(b.isLegalMove("b8d7"))
 
         #Bishop - move diagnoally left
+        b._currentPlayer = constants.WHITE_PLAYER
         self.assertTrue(b.isLegalMove("c1a3"))
 
         #Bishop - move back and right
+        b._currentPlayer = constants.BLACK_PLAYER
         self.assertTrue(b.isLegalMove("c6b7"))
 
         #Queen - move right one space
+        b._currentPlayer = constants.WHITE_PLAYER
         self.assertTrue(b.isLegalMove("d4e4"))
 
         #Queen - move left several spaces
@@ -294,6 +301,7 @@ class ChessTest(unittest.TestCase):
         self.assertTrue(b.isLegalMove("d4b6"))
 
         #King - move forward
+        b._currentPlayer = constants.BLACK_PLAYER
         self.assertTrue(b.isLegalMove("e7e6"))
 
         #King - move backward 
@@ -310,6 +318,7 @@ class ChessTest(unittest.TestCase):
 
     def test_is_legal_move_improper_movement(self):
         from board import Board
+        import constants
         b = Board()
         b._board = ChessTest.board2
 
@@ -317,9 +326,11 @@ class ChessTest(unittest.TestCase):
         self.assertFalse(b.isLegalMove("h2h5"))
 
         #Pawn - move left
+        b._currentPlayer = constants.BLACK_PLAYER
         self.assertFalse(b.isLegalMove("g7h7"))
 
         #Pawn - move backwards
+        b._currentPlayer = constants.WHITE_PLAYER
         self.assertFalse(b.isLegalMove("d2d1"))
 
         #Rook - move diagonally
@@ -335,6 +346,7 @@ class ChessTest(unittest.TestCase):
         self.assertFalse(b.isLegalMove("d4b5"))
 
         #King - move forward two
+        b._currentPlayer = constants.BLACK_PLAYER
         self.assertFalse(b.isLegalMove("e7e5"))
 
     def test_is_legal_move_piece_not_moved(self):
@@ -346,6 +358,7 @@ class ChessTest(unittest.TestCase):
 
     def test_is_legal_move_moving_into_occupied_space(self):
         from board import Board
+        import constants
         b = Board()
         b._board = ChessTest.board1
 
@@ -353,10 +366,12 @@ class ChessTest(unittest.TestCase):
         self.assertFalse(b.isLegalMove("a1a2"))
 
         #Black king moves into black bishop
+        b._currentPlayer = constants.BLACK_PLAYER
         self.assertFalse(b.isLegalMove("e8f8"))
 
     def test_is_legal_move_legal_kills(self):
         from board import Board
+        import constants
         b = Board()
         b._board = ChessTest.board1
 
@@ -364,13 +379,16 @@ class ChessTest(unittest.TestCase):
         self.assertTrue(b.isLegalMove("f3g5"))
 
         #Black queen kills white bishop
+        b._currentPlayer = constants.BLACK_PLAYER
         self.assertTrue(b.isLegalMove("f4c1"))
 
         #White bishop kills black pawn
+        b._currentPlayer = constants.WHITE_PLAYER
         self.assertTrue(b.isLegalMove("c1h7"))
 
     def test_is_legal_move_blocked_move(self):
         from board import Board
+        import constants
         b = Board()
         b._board = ChessTest.board1
 
@@ -378,6 +396,7 @@ class ChessTest(unittest.TestCase):
         self.assertFalse(b.isLegalMove("a2a4"))
 
         #Rook tries to move forward, is blocked by pawn
+        b._currentPlayer = constants.BLACK_PLAYER
         self.assertFalse(b.isLegalMove("h8h5"))
 
         #Rook tries to move across, is blocked by several pieces
@@ -386,22 +405,27 @@ class ChessTest(unittest.TestCase):
         #Knight 'jumps' - can't be blocked by any pieces
 
         #Bishop tries to move left diagonally, is blocked by pawn
+        b._currentPlayer = constants.WHITE_PLAYER
         self.assertFalse(b.isLegalMove("f1c4"))
 
         #Queen tries to move across, is blocked by other queen
+        b._currentPlayer = constants.BLACK_PLAYER
         self.assertFalse(b.isLegalMove("f4c4"))
 
         #King can only move one space at a time
 
     def test_is_legal_move_illegal_kills(self):
         from board import Board
+        import constants
         b = Board()
         b._board = ChessTest.board1
 
         #Black pawn moves forward to kill white pawn
+        b._currentPlayer = constants.BLACK_PLAYER
         self.assertFalse(b.isLegalMove("g5g4"))
 
         #Knight moves forward three spaces to kill black pawn
+        b._currentPlayer = constants.WHITE_PLAYER
         self.assertFalse(b.isLegalmove("a3a6"))
     """
 
