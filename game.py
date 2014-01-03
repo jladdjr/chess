@@ -79,12 +79,10 @@ class Game(object):
 		print "Player", self._otherPlayer,"is in check!"
 	
 	#Switch to next player
-	"""
 	if self._currentPlayer == constants.WHITE_PLAYER:
 	    self._currentPlayer = constants.BLACK_PLAYER
 	else: 
 	    self._currentPlayer = constants.WHITE_PLAYER
-	"""
 
     def _getPlayersNextMove(self):
         while True:
