@@ -47,20 +47,44 @@ class Game(object):
         Contains logic for executing a player's turn.
         Exits when game is finished.
         """
+        if self._currentPlayer == constants.WHITE_PLAYER:
+	    self._otherPlayer = constants.BLACK_PLAYER
+
         #Get next move from player
         move = self._getPlayersNextMove()
 
         #If move is legal, make next move
+	while self._board.isLegalMove(move) != True:
+	    move = self._getPlayersNextMove()
 
         #Print board
         os.system('clear')
         self._board.printBoard()
+    
+	#Creates variable other_player
+	if self._currentPlayer == constants.WHITE_PLAYER:
+	    self._otherPlayer = constants.BLACK_PLAYER
+	else:
+	    self._otherPlayer = constants.WHITE_PLAYER
 
         #End game if king is in check-mate
+	if self._boardAnalyzer.isCheckMate(self._board,self._otherPlayer)==True:
+		print "Congradulations! Player",self._currentPlayer,"has won!"
+		choice = ""
+		while choice != 'quit':
+			choice = raw_input("Type 'quit' to quit. ")
 
         #Warn if king is in check
-
-        #Switch to next player
+	if self._boardAnalyzer.isCheck(self._board, self._otherPlayer)==True:
+		print "Player", self._otherPlayer,"is in check!"
+	
+	#Switch to next player
+	"""
+	if self._currentPlayer == constants.WHITE_PLAYER:
+	    self._currentPlayer = constants.BLACK_PLAYER
+	else: 
+	    self._currentPlayer = constants.WHITE_PLAYER
+	"""
 
     def _getPlayersNextMove(self):
         while True:

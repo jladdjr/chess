@@ -157,7 +157,6 @@ class ChessTest(unittest.TestCase):
 
     #Tests for _nextTurn()
 
-    """
     def test_next_turn_switching_players(self):
         from game import Game
         import constants
@@ -202,7 +201,7 @@ class ChessTest(unittest.TestCase):
         self.assertTrue(a.isCheck.called)
         self.assertTrue(a.isCheckMate.called)
         self.assertEqual(g._currentPlayer, constants.BLACK_PLAYER)
-    """
+
 
     #########################
     # Tests for Board class #
@@ -733,5 +732,4 @@ class ChessTest(unittest.TestCase):
     """
 
 if __name__ == '__main__':
-    unittest.main(buffer=True)      #User buffer option to supress output
-                                    #from program
+    unittest.main()
