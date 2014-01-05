@@ -66,7 +66,8 @@ class Game(object):
 
         #End game if king is in check-mate
         if self._boardAnalyzer.isCheckMate(self._board, self._otherPlayer)==True:
-            print "Congradulations! Player", self._currentPlayer,"has won!"
+            #Game end conditions
+            print "Congradulations! Player", self._currentPlayer, "has won!"
             choice = ""
             while choice != 'quit':
                 choice = raw_input("Type 'quit' to quit. ")
@@ -82,6 +83,12 @@ class Game(object):
             self._currentPlayer = constants.WHITE_PLAYER
 
     def _getPlayersNextMove(self):
+        """
+        Retrieves player's next move. (e.g. "b1d4").
+        Ensures that move is well-formed.
+
+        @return: Player's next move (e.g. "b1d4")
+        """
         while True:
             playerColor = ""
             if self._currentPlayer == constants.WHITE_PLAYER:
@@ -91,13 +98,36 @@ class Game(object):
             prompt = "%s> " % playerColor
             response = raw_input(prompt)
 
-            #Validate response
-            if len(response) == 4:
-                if response.lower() == 'quit':
-                    sys.exit(0)
-                return response
-            else:
-                helpText = "\n Type the starting and ending coordinates.\n" \
-                           " For example, 'b1c3'.\n\n" \
-                           " Type quit to quit.\n"
-                print helpText
+            #Check response length
+            if len(response) != 4:
+                self._printHelp()
+                continue
+
+            #Does user want to quit?
+            if response.lower() == 'quit':
+                sys.exit(0)
+
+            #Check row/column values 
+            validColumns = "abcdefgh"
+            validRows    = "12345678"
+
+            col1 = response[0]
+            row1 = response[1]
+            col2 = response[2]
+            row2 = response[3]
+
+            if (col1 not in validColumns) or   \
+               (row1 not in validRows) or      \
+               (col2 not in validColumns) or   \
+               (row2 not in validRows):
+                self._printHelp()
+                continue
+
+            return response
+
+    def _printHelp(self):
+        helpText = "\n Type the starting and ending coordinates.\n" \
+                   " For example, 'b1c3'.\n\n" \
+                   " Type quit to quit.\n"
+        print helpText
+
