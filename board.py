@@ -251,14 +251,14 @@ class Board(object):
             validity = True
         #taking another piece for white piece
         elif (move[1] + 1 == move[3] and move[0] + 1 == move[2] or move[1] + 1 ==move[3] and move[0] - 1 == move[2]):
-            if self._board[move[2]move[3]] == "":
+            if self._board[move[2]][move[3]] == "":
                 print "A pawn can not move diagonally to an empty space"
                 validity=False
             else:
                 validity=True
         #taking another piece for black piece
-        elif (move[1] - 1 == move[3] and move[0] + 1 == move[2] or move[1] - 1 ==move[3] and move[0] - 1 == move[2]):
-            if self._board[move[2]move[3]] == "":
+        elif ((move[1] - 1 == move[3] and move[0] + 1 == move[2]) or (move[1] - 1 ==move[3] and move[0] - 1 == move[2])):
+            if self._board[move[2]][move[3]] == "":
                 print "A pawn can not move diagonally to an empty space"
                 validity=False
             else:
