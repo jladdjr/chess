@@ -209,9 +209,22 @@ class Board(object):
     def _isLegalMoveForQueen(self, move):
         """
         Helper method for determining if move is legal for queen.
+        A move for a queen is legal is the Queen i) stays in the same column, or ii)stays in the same row, or iii)changes the row and column by the same amount (as in up 3 over 3 or up 4 over 4)
         """
-        #(Replace this with a real test)
-        return True
+
+        #if queen stays in same column
+        if move[0]==move[2]:
+            validity=True
+        #if queen stays in same row
+        elif move[1]==move[3]:
+            validity==True
+        #if change of row and column is the same
+        elif abs(move[2] - move[0]) == abs(move[3] - move[1]):
+            validity==True
+        else: 
+            print "Not a valid move for a Queen"
+            validity = False
+        return validity
 
     def _isLegalMoveForKing(self, move):
         """
