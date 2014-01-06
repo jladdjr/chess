@@ -51,7 +51,7 @@ class Game(object):
         move = self._getPlayersNextMove()
 
         #If move is legal, make next move
-        while self._board.isLegalMove(move) != True:
+        while self._board.isLegalMove(move,self._currentPlayer) != True:
             move = self._getPlayersNextMove()
 
         #Print board
@@ -75,13 +75,12 @@ class Game(object):
         #Warn if king is in check
         if self._boardAnalyzer.isCheck(self._board, self._otherPlayer)==True:
             print "Player", self._otherPlayer,"is in check!"
-    
-        #Switch to next player
+        
+
         if self._currentPlayer == constants.WHITE_PLAYER:
             self._currentPlayer = constants.BLACK_PLAYER
         else: 
             self._currentPlayer = constants.WHITE_PLAYER
-
     def _getPlayersNextMove(self):
         """
         Retrieves player's next move. (e.g. "b1d4").
