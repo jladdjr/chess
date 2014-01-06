@@ -221,20 +221,32 @@ class Board(object):
         return True
 
     def _isLegalMoveForPawn(self, move):
+        #checks different situations, then returns either True or False
         """
         Helper method for determining if move is legal for pawn.
         """
         #moving ahead 2 spaces
-        if (move[3] == move[1]+2 and move [0]==move[2]):
-            s
+        if (move[1] + 2 == move[3] and move [0]==move[2]):
+            #this should only work if the piece is in row 2 or row 7
+            if (move[1]==1 or move [1]==6):
+                validity=True
+            else:
+                print "You can't move 2 spaces from row ", move[1]
+                validity=False
         #moving ahead 1 space
-        elif (move[3] == move[1]+1 and move[0]==move[2]):
-            
+        elif (move[1] + 1 == move[3] and move[0]==move[2]):
+            validity = True
         #taking another piece
-        elif (move[3] == move[1]+1 and move[0] + 1 == move[2] or move[3]==move[1] and move[0] - 1 == move[2]):
+        elif (move[1] + 1 == move[3] and move[0] + 1 == move[2] or move[1] + 1 ==move[3] and move[0] - 1 == move[2]):
+            if self._board[move[2]move[3]] == "":
+                print "A pawn can not move diagonally to an empty space"
+                validity=False
+            else:
+                validity=True
+        else:
+            validity = False
 
-        #(Replace this with a real test)
-        return True
+        return validity
 
     ################################################################
 
