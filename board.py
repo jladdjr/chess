@@ -224,6 +224,15 @@ class Board(object):
         """
         Helper method for determining if move is legal for pawn.
         """
+        #moving ahead 2 spaces
+        if (move[3] == move[1]+2 and move [0]==move[2]):
+            s
+        #moving ahead 1 space
+        elif (move[3] == move[1]+1 and move[0]==move[2]):
+            
+        #taking another piece
+        elif (move[3] == move[1]+1 and move[0] + 1 == move[2] or move[3]==move[1] and move[0] - 1 == move[2]):
+
         #(Replace this with a real test)
         return True
 
