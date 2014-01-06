@@ -54,7 +54,8 @@ class Board(object):
         move = new_move
         return move
         
-    def isLegalMove(self, move):
+    def isLegalMove(self, move,currentPlayer):
+        self._currentPlayer=currentPlayer
         """
         Determines if a move is legal or not.
         A move is not legal if any of the following is true:
@@ -81,6 +82,7 @@ class Board(object):
         else:
             validity = True
         
+
         #converts move to new syntax
         move = self._moveConverter(move)
         
@@ -88,8 +90,7 @@ class Board(object):
         if self._board[move[0]][move[1]] == "":
             print "No piece there."
             return False
-
-        """
+        
         #CW - Code in progress..
     
         #JDL Hint: Create a method that helps you determine which player 
@@ -102,17 +103,14 @@ class Board(object):
         #           the reader what it represents.
 
         #c) the game piece is not owned by the current player
-        print self._currentPlayer
-        print self._board[move[0]][move[1]]
-        
         if self._currentPlayer == constants.WHITE_PLAYER:
-            if "*" in self._board[move[0]][move[1]]:
+            if self._board[move[0]][move[1]][0]=="*":
                 print "Piece not owned by player"
                 return False
             else:
                 validity = True
         if self._currentPlayer == constants.BLACK_PLAYER:
-            if "*" not in self._board[move[0]][move[1]]:
+            if "*" not in self._board[move[0]][move[1]][0]:
                 print "Piece not owned by player"
                 return False
             else: 
@@ -169,7 +167,7 @@ class Board(object):
                 validity = True
             else:
                 return False
-        """
+        
         #f) a game piece is blocking the path of the move 
         
         #g) not moving into check
@@ -209,7 +207,7 @@ class Board(object):
     def _isLegalMoveForQueen(self, move):
         """
         Helper method for determining if move is legal for queen.
-        A move for a queen is legal is the Queen i) stays in the same column, or ii)stays in the same row, or iii)changes the row and column by the same amount (as in up 3 over 3 or up 4 over 4)
+        A move for a queen is legal is the Queen i) stays in the same column, or ii)stays in the same row, or iii)changes the row and column by the same amount (as in up 3 over 3 or down 4 over 4)
         """
 
         #if queen stays in same column
