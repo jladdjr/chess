@@ -14,3 +14,6 @@ KNIGHT_SYMBOL = 'n'
 BISHOP_SYMBOL = 'b'
 QUEEN_SYMBOL  = 'q'
 KING_SYMBOL   = 'k'
+
+#Empty space
+EMPTY_Symbol  = ''
