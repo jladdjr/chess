@@ -35,6 +35,22 @@ class Board(object):
         """
         return self._board
     
+    def pieceOwner(self, move):
+        """
+        Returns the owner of a given piece
+        
+        @param move    The space you are trying to check (e.g. [a2])
+        @return:       Either constants.WHITE_PLAYER or constants.BLACK_PLAYER
+        """
+        #Updates move to new format 
+        move = self._moveConverter(specific_move)
+        
+        #Checks for owner of a given piece
+        if constants.BLACK_PLAYER_SYMBOL in self._board[specific_move[0][specific_move[1]]:
+            return constants.BLACK_PLAYER
+        else:
+            return constants.WHITE_PLAYER
+    
     def _moveConverter(self, move):
         """
         Converts move from original string input to a list of integers 
@@ -54,8 +70,7 @@ class Board(object):
         move = new_move
         return move
         
-    def isLegalMove(self, move,currentPlayer):
-        self._currentPlayer=currentPlayer
+    def isLegalMove(self, move):
         """
         Determines if a move is legal or not.
         A move is not legal if any of the following is true:
@@ -64,8 +79,7 @@ class Board(object):
          c) the game piece is not owned by the current player
          d) a game piece owned by the same player is at the destination
          e) the move is not legal for the game piece
-         f) a game piece is blocking the path of the move 
-         g) not moving into check 
+         f) not moving into check 
 
         @precondition: Method presumes that move is well-formed.
         (e.g. row and column values are correct)
@@ -73,115 +87,77 @@ class Board(object):
         @param move:        Four letter combination representing move. (e.g. "b3c4") 
         @return:            True if move is legal, False otherwise.
         """
-        validity = True
+        #Converts move to new syntax in preparation for tests
+        move = self._moveConverter(move)
         
-        #a) piece is not actually moved (e.g. 'a5a5') 
-        if move[0:2]==move[2:4]:
+        #a)Tests for whether a piece is not actually moved (e.g. 'a5a5') 
+        if move[0:2] == move[2:4]:
             print "Doesn't work because no piece moved."
             return False
         else:
             validity = True
         
-
-        #converts move to new syntax
-        move = self._moveConverter(move)
-        
-        #b) move refers to empty space
-        if self._board[move[0]][move[1]] == "":
+        #b)Tests if there is a piece in the targeted space
+        if self._board[move[0]][move[1]] == constants.EMPTY_SYMBOL:
             print "No piece there."
             return False
-        
-        #CW - Code in progress..
-    
-        #JDL Hint: Create a method that helps you determine which player 
-        #          owns a piece (at a given spot). Call that method here.
-        #          This should make this method considerably smaller
-        #          (and also easier to read).
-
-        #JDL Hint2: Replace '*' with constants.BLACK_PLAYER_SYMBOL
-        #           '*' is a 'magic value'. It's not obvious to
-        #           the reader what it represents.
-
-        #c) the game piece is not owned by the current player
-        if self._currentPlayer == constants.WHITE_PLAYER:
-            if self._board[move[0]][move[1]][0]=="*":
-                print "Piece not owned by player"
-                return False
-            else:
-                validity = True
-        if self._currentPlayer == constants.BLACK_PLAYER:
-            if "*" not in self._board[move[0]][move[1]][0]:
-                print "Piece not owned by player"
-                return False
-            else: 
-                validity = True
-       
-        #d) a game piece owned by the same player is at the destination
-        if self._currentPlayer == constants.WHITE_PLAYER:
-            if "*" not in self._board[move[2]][move[3]] and not self._board[move[2]][move[3]] == "":
-                print "Can't capture own piece"
-                return False
-            else:
-                validity = True
-        if self._currentPlayer == constants.BLACK_PLAYER:
-            if "*" in self._board[move[2]][move[3]] and not self._board[move[2]][move[3]] == "":
-                print "Can't capture own piece"
-                return False
-            else:
-                validity = True
             
-        #JDL Hint: Replace 'p' with constants.PAWN_SYMBOL, 
-        #                  'r' with constants.ROOK_SYMBOL, etc.
-        #          When someone reads 'p', they won't know what it means.
-        #          (It's a 'magic value' like we were talking about)
-        #          constants.PAWN_SYMBOL makes it much more obvious. 
+        #c)Tests if the game piece is not owned by the current player
+        if self._currentPlayer != self.pieceOwner([move[0], move[1]]):
+            print "Piece not owned by player"
+            return False
+        else:
+            validity = True
+       
+        #d)Tests if game piece owned by the current player occupies end destination
+        if self._currentPlayer == self.pieceOwner([move[2], move[3]]):
+            print "Endpoint space has piece currently owned by player"
+            return False
+        else:
+            validity = True
 
-        #e) the move is not legal for the game piece
-        if 'p' in self._board[move[0]][move[1]]:
+        #e)Tests whether the move is legal for a specific piece
+        if constants.PAWN_SYMBOL in self._board[move[0]][move[1]]:
             if self._isLegalMoveForPawn(move) == True:
                 validity = True
             else:
                 return False
-        if 'r' in self._board[move[0]][move[1]]:
+        if constants.ROOK_SYMBOL in self._board[move[0]][move[1]]:
             if self._isLegalMoveForRook(move) == True:
                 validity = True
             else:
                 return False
-        if 'n' in self._board[move[0]][move[1]]:
+        if constants.KNIGHT_SYMBOL in self._board[move[0]][move[1]]:
             if self._isLegalMoveForKnight(move) == True:
                 validity = True
             else:
                 return False
-        if 'b' in self._board[move[0]][move[1]]:
+        if constants.BISHOP_SYMBOL in self._board[move[0]][move[1]]:
             if self._isLegalMoveForBishop(move) == True:
                 validity = True
             else:
                 return False
-        if 'q' in self._board[move[0]][move[1]]:
+        if constants.QUEEN_SYMBOL in self._board[move[0]][move[1]]:
             if self._isLegalMoveForQueen(move) == True:
                 validity = True
             else:
                 return False
-        if 'k' in self._board[move[0]][move[1]]:
+        if constants.KING_SYMBOL in self._board[move[0]][move[1]]:
             if self._isLegalMoveForKing(move) == True:
                 validity = True
             else:
                 return False
         
-        #f) a game piece is blocking the path of the move 
+        #f)Tests whether current player's move will move current player in check
+        self._testBoard = self._board
         
-        #g) not moving into check
-         
+        #Creates a new board with which to check whether the move will put the king in check
+        testPiece = self.board[move[0], move[1]]
+        self._testBoard[move[2], move[3]] = testPiece
+        
+        #CSW note: what we want to do here is access the check.method in board analyzer which has not been built yet
+        
         return validity
-
-    def pieceOwner(self, loc):
-        """
-        Determines which player owns a given piece.
-
-        @param loc:         Location on game board (e.g. "b5")
-        @return:            Player (e.g. constants.WHITE_PLAYER)
-        """
-        pass
 
     def _isLegalMoveForRook(self, move):
         """
@@ -275,9 +251,6 @@ class Board(object):
         @precondition:      isLegalMove() must be True.
         @param move:        Four letter combination representing move. (e.g. "b3c4") 
         """
-
-        #Note: You can write this method before writing all of the
-        #isLegalMove methods (since they all return True right now)
 
         pass
 
