@@ -251,9 +251,10 @@ class Board(object):
         @precondition:      isLegalMove() must be True.
         @param move:        Four letter combination representing move. (e.g. "b3c4") 
         """
-
-        pass
-
+        if isLegalMove(move) == True:
+            targetPiece = self._board[move[0], move[1]]
+            self._board[move[2], move[3]] == targetPiece
+        
     ################################################################
 
     def printBoard(self):
