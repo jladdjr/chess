@@ -16,4 +16,4 @@ QUEEN_SYMBOL  = 'q'
 KING_SYMBOL   = 'k'
 
 #Empty space
-EMPTY_Symbol  = ''
+EMPTY_SYMBOL  = ''
