@@ -35,7 +35,7 @@ class Board(object):
         """
         return self._board
     
-    def pieceOwner(self, move):
+    def pieceOwner(self, specific_move):
         """
         Returns the owner of a given piece
         
@@ -149,9 +149,11 @@ class Board(object):
                 return False
         
         #f)Tests whether current player's move will move current player in check
-        self._testBoard = self._board
         
-        #Creates a new board with which to check whether the move will put the king in check
+        """
+        #Creates a new board with which to test whether the move will put the king in check
+        """
+        self._testBoard = self._board
         testPiece = self.board[move[0], move[1]]
         self._testBoard[move[2], move[3]] = testPiece
         
@@ -176,14 +178,14 @@ class Board(object):
             return False
             
         #Tests whether piece in path of horizontal movement
-        for space in len(self._board):
+        for space in range(move[0] + 1, move[2]):
             if constants.EMPTY_SYMBOL != self._board[space][move[1]]:
                 return False
             else:
                 validity = True
             
         #Tests whether piece in path of vertical movement
-        for space in len(self._board):
+        for space in range(move[1] + 1, move[3]):
             if constants.EMPTY_SYMBOL != self._board[move[0][space]]:
                 return False
             else:
@@ -309,8 +311,8 @@ class Board(object):
         
         #Checks validity of move and then moves piece
         if isLegalMove(move) == True:
-            targetPiece = self._board[move[0], move[1]]
-            self._board[move[2], move[3]] == targetPiece
+            targetPiece = self._board[move[0]][move[1]]
+            self._board[move[2]][move[3]] = targetPiece
         
     ################################################################
 
