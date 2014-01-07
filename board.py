@@ -209,9 +209,33 @@ class Board(object):
         else:
             return False
             
-        #Test whether piece in path of diagonal movement
-        
-        ####To be built###
+        #Test whether piece in path of upper-right diagonal movement
+        for space in range(1, abs(move[2] - move[0])):
+            if constants.EMPTY_SYMBOL != self._board[move[0] + i][move[1] + i]:
+                return False
+            else:
+                validity = True
+                
+        #Test whether piece in path of upper-left diagonal movement
+        for space in range(1, abs(move[2] - move[0])):
+            if constants.EMPTY_SYMBOL != self._board[move[0] - i][move[1] + i]:
+                return False
+            else:
+                validity = True
+                
+        #Test whether piece in path of lower-right diagonal movement
+        for space in range(1, abs(move[2] - move[0])):
+            if constants.EMPTY_SYMBOL != self._board[move[0] + i][move[1] - i]:
+                return False
+            else:
+                validity = True
+                
+        #Test whether piece in path of lower-left diagonal movement
+        for space in range(1, abs(move[2] - move[0])):
+            if constants.EMPTY_SYMBOL != self._board[move[0] - i][move[1] - i]:
+                return False
+            else:
+                validity = True
             
         return validity
 
