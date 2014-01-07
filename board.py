@@ -197,7 +197,19 @@ class Board(object):
         """
         Helper method for determining if move is legal for knight.
         """
-        return True
+        if (move[0] + 2 == move[2] and move[1] + 1 == move[3]) or \
+        (move[0] + 2 == move[2] and move[1] - 1 == move[3]) or \
+        (move[0] - 2 == move[2] and move[1] + 1 == move[3]) or \
+        (move[0] - 2 == move[2] and move[1] - 1 == move[3]) or \
+        (move[0] + 1 == move[2] and move[1] + 2 == move[3]) or \
+        (move[0] + 1 == move[2] and move[1] - 2 == move[3]) or \
+        (move[0] - 1 == move[2] and move[1] + 2 == move[3]) or \
+        (move[0] - 1  == move[2] and move[1] - 2 == move[3]):
+            return False
+        else:
+            validity = True
+            
+        return validity
 
     def _isLegalMoveForBishop(self, move):
         """
