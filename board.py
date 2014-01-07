@@ -163,22 +163,55 @@ class Board(object):
         """
         Helper method for determining if move is legal for rook.
         """
-        #(Replace this with a real test)
-        return True
+        #Allows for horizontal movement
+        if move[0] == move[2]:
+            validity = True
+        else:
+            return False
+            
+        #Allows for vertical movement
+        if move[1] == move[3]:
+            validity = True
+        else:
+            return False
+            
+        #Tests whether piece in path of horizontal movement
+        for space in len(self._board):
+            if constants.EMPTY_SYMBOL != self._board[space][move[1]]:
+                return False
+            else:
+                validity = True
+            
+        #Tests whether piece in path of vertical movement
+        for space in len(self._board):
+            if constants.EMPTY_SYMBOL != self._board[move[0][space]]:
+                return False
+            else:
+                validity = True
+                
+        return validity
 
     def _isLegalMoveForKnight(self, move):
         """
         Helper method for determining if move is legal for knight.
         """
-        #(Replace this with a real test)
         return True
 
     def _isLegalMoveForBishop(self, move):
         """
         Helper method for determining if move is legal for bishop.
         """
-        #(Replace this with a real test)
-        return True
+        #Allows for diagonal movement
+        if abs(move[2] - move[0]) == abs(move[3] - move[1]):
+            validity = True
+        else:
+            return False
+            
+        #Test whether piece in path of diagonal movement
+        
+        ####To be built###
+            
+        return validity
 
     def _isLegalMoveForQueen(self, move):
         """
@@ -204,8 +237,28 @@ class Board(object):
         """
         Helper method for determining if move is legal for king.
         """
-        #(Replace this with a real test)
-        return True
+        #Allows for horizontal movement
+        if (move[0] + 1 == move[2] or move[0] - 1 == move[2]):
+            validity = True
+        else:
+            return False
+        
+        #Allows for vertical movement
+        if (move[1] + 1 == move[3] or move[1] - 1 == move[3]):
+            validity = True
+        else:
+            return False
+            
+        #Allows for diagonal movement
+        if (move[0] + 1 == move[2] and move[1] + 1 == move[3]) or \
+        (move[0] - 1 == move[2] and move[1] - 1 == move[3]) or \
+        (move[0] + 1 == move[2] and move[1] - 1 == move[3]) or \
+        (move[0] - 1 == move[2] and move[1] + 1 == move[3]):
+            validity = True
+        else:
+            return False
+        
+        return validity
 
     def _isLegalMoveForPawn(self, move):
         #checks different situations, then returns either True or False
@@ -251,6 +304,10 @@ class Board(object):
         @precondition:      isLegalMove() must be True.
         @param move:        Four letter combination representing move. (e.g. "b3c4") 
         """
+        #Converts move to new format
+        move = self._moveConverter(move)
+        
+        #Checks validity of move and then moves piece
         if isLegalMove(move) == True:
             targetPiece = self._board[move[0], move[1]]
             self._board[move[2], move[3]] == targetPiece
