@@ -149,14 +149,15 @@ class Board(object):
                 return False
                 
         #f)Tests whether current player's move will move current player in check
-        
-        #Creates a new board with which to test whether the move will put the king in check
         self._testBoard = self._board
-        testPiece = self.board[move[0], move[1]]
-        self._testBoard[move[2], move[3]] = testPiece
+        testPiece = self._board[move[0]][move[1]]
+        self._testBoard[move[2]][move[3]] = testPiece
         
-        if board_analyzer.isCheck(self._testBoard, currentPlayer):
-            pass
+        if board_analyzer.isCheck(self._testBoard, currentPlayer) == True:
+            print "Cannot move into check."
+            return False
+        else:
+            validity = True
             
         return validity
 
@@ -264,7 +265,7 @@ class Board(object):
         Helper method for determining if move is legal for queen.
         A move for a queen is legal is the Queen i) stays in the same column, or ii)stays in the same row, or iii)changes the row and column by the same amount (as in up 3 over 3 or down 4 over 4)
         """
-
+        """
         #if queen stays in same column
         if move[0]==move[2]:
             validity=True
@@ -278,6 +279,8 @@ class Board(object):
             print "Not a valid move for a Queen"
             validity = False
         return validity
+        """
+        return True
 
     def _isLegalMoveForKing(self, move):
         """
@@ -356,7 +359,6 @@ class Board(object):
         @precondition:      isLegalMove() must be True.
         @param move:        Four letter combination representing move. (e.g. "b3c4") 
         """
-        """
         #Converts umove to new format
         move = self._moveConverter(move)
         
@@ -364,10 +366,9 @@ class Board(object):
         if isLegalMove(move) == True:
             targetPiece = self._board[move[0]][move[1]]
             self._board[move[2]][move[3]] = targetPiece
-        """
-        pass
+            print self._board[move[0]][move[1]],constants.EMPTY_SYMBOL
+            self._board[move[0]][move[1]] = constants.EMPTY_SYMBOL
         
-
     ################################################################
 
     def printBoard(self):
