@@ -1,5 +1,5 @@
 #!/usr/bin/python
-#
+
 import constants
 import board_analyzer
 
