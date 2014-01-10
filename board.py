@@ -190,12 +190,11 @@ class Board(object):
                 
         return validity
         """
-        return True
+        pass
 
     def _isLegalMoveForKnight(self, move):
         """
         Helper method for determining if move is legal for knight.
-        """
         """
         if (move[0] + 2 == move[2] and move[1] + 1 == move[3]) or \
         (move[0] + 2 == move[2] and move[1] - 1 == move[3]) or \
@@ -205,13 +204,11 @@ class Board(object):
         (move[0] + 1 == move[2] and move[1] - 2 == move[3]) or \
         (move[0] - 1 == move[2] and move[1] + 2 == move[3]) or \
         (move[0] - 1  == move[2] and move[1] - 2 == move[3]):
-            return False
-        else:
             validity = True
-            
+        else:
+            return False
+
         return validity
-        """
-        return True
 
     def _isLegalMoveForBishop(self, move):
         """
@@ -226,35 +223,35 @@ class Board(object):
             
         #Test whether piece in path of upper-right diagonal movement
         for space in range(1, abs(move[2] - move[0])):
-            if constants.EMPTY_SYMBOL != self._board[move[0] + i][move[1] + i]:
+            if constants.EMPTY_SYMBOL != self._board[move[0] + space][move[1] + space]:
                 return False
             else:
                 validity = True
                 
         #Test whether piece in path of upper-left diagonal movement
         for space in range(1, abs(move[2] - move[0])):
-            if constants.EMPTY_SYMBOL != self._board[move[0] - i][move[1] + i]:
+            if constants.EMPTY_SYMBOL != self._board[move[0] - space][move[1] + space]:
                 return False
             else:
                 validity = True
                 
         #Test whether piece in path of lower-right diagonal movement
         for space in range(1, abs(move[2] - move[0])):
-            if constants.EMPTY_SYMBOL != self._board[move[0] + i][move[1] - i]:
+            if constants.EMPTY_SYMBOL != self._board[move[0] + space][move[1] - space]:
                 return False
             else:
                 validity = True
                 
         #Test whether piece in path of lower-left diagonal movement
         for space in range(1, abs(move[2] - move[0])):
-            if constants.EMPTY_SYMBOL != self._board[move[0] - i][move[1] - i]:
+            if constants.EMPTY_SYMBOL != self._board[move[0] - space][move[1] - space]:
                 return False
             else:
                 validity = True
             
         return validity
         """
-        return True
+        pass
 
     def _isLegalMoveForQueen(self, move):
         """
@@ -282,31 +279,28 @@ class Board(object):
         """
         Helper method for determining if move is legal for king.
         """
-        """
         #Allows for horizontal movement
         if (move[0] + 1 == move[2] or move[0] - 1 == move[2]):
-            validity = True
+            return True
         else:
-            return False
+            validity = False
         
         #Allows for vertical movement
         if (move[1] + 1 == move[3] or move[1] - 1 == move[3]):
-            validity = True
+            return True
         else:
-            return False
+            validity = False
             
         #Allows for diagonal movement
         if (move[0] + 1 == move[2] and move[1] + 1 == move[3]) or \
         (move[0] - 1 == move[2] and move[1] - 1 == move[3]) or \
         (move[0] + 1 == move[2] and move[1] - 1 == move[3]) or \
         (move[0] - 1 == move[2] and move[1] + 1 == move[3]):
-            validity = True
+            return True
         else:
-            return False
+            validity = False
         
         return validity
-        """
-        return True
 
     def _isLegalMoveForPawn(self, move):
         """
