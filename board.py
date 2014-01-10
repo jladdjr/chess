@@ -40,9 +40,6 @@ class Board(object):
         @param move    The space you are trying to check (e.g. [a2])
         @return:       Either constants.WHITE_PLAYER or constants.BLACK_PLAYER
         """
-        #Updates move to new format 
-        move = self._moveConverter(specific_move)
-        
         #Checks for owner of a given piece
         if constants.BLACK_PLAYER_SYMBOL in self._board[specific_move[0]][specific_move[1]]:
             return constants.BLACK_PLAYER
@@ -87,9 +84,6 @@ class Board(object):
         @param move:        Four letter combination representing move. (e.g. "b3c4") 
         @return:            True if move is legal, False otherwise.
         """
-        #Converts move to new syntax in preparation for tests
-        move = self._moveConverter(move)
-        
         #a)Tests for whether a piece is not actually moved (e.g. 'a5a5') 
         if move[0:2] == move[2:4]:
             print "Doesn't work because no piece moved."
@@ -147,7 +141,7 @@ class Board(object):
                 validity = True
             else:
                 return False
-                
+        """
         #f)Tests whether current player's move will move current player in check
         self._testBoard = self._board
         testPiece = self._board[move[0]][move[1]]
@@ -158,7 +152,8 @@ class Board(object):
             return False
         else:
             validity = True
-            
+        """
+   
         return validity
 
     def _isLegalMoveForRook(self, move):
@@ -352,23 +347,17 @@ class Board(object):
 
     ################################################################
 
-    def movePiece(self, move):
+    def movePiece(self, currentPlayer, move):
         """
         Moves chess piece.
 
         @precondition:      isLegalMove() must be True.
         @param move:        Four letter combination representing move. (e.g. "b3c4") 
         """
-        #Converts umove to new format
-        move = self._moveConverter(move)
-        
-        #Checks validity of move and then moves piece
-        if isLegalMove(move) == True:
-            targetPiece = self._board[move[0]][move[1]]
-            self._board[move[2]][move[3]] = targetPiece
-            print self._board[move[0]][move[1]],constants.EMPTY_SYMBOL
-            self._board[move[0]][move[1]] = constants.EMPTY_SYMBOL
-        
+        targetPiece = self._board[move[0]][move[1]]
+        self._board[move[2]][move[3]] = targetPiece
+        self._board[move[0]][move[1]] = constants.EMPTY_SYMBOL
+    
     ################################################################
 
     def printBoard(self):

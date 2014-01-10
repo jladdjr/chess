@@ -48,12 +48,14 @@ class Game(object):
         """
         #Get next move from player
         move = self._getPlayersNextMove()
-
-        #If move is legal, make next move
+        move = self._board._moveConverter(move)
         while self._board.isLegalMove(self._currentPlayer, move) != True:
             move = self._getPlayersNextMove()
 
-        #Print board
+        #Executes move
+        self._board.movePiece(self._currentPlayer, move)
+
+        #Prints board
         os.system('clear')
         self._board.printBoard()
     
@@ -62,24 +64,28 @@ class Game(object):
             self._otherPlayer = constants.BLACK_PLAYER
         else:
             self._otherPlayer = constants.WHITE_PLAYER
-
+    
+        ### End game needs work - 'quit' will exit below loop
+        ### And not exit game
+        
         #End game if king is in check-mate
-        if board_analyzer.isCheckMate(self._board, self._otherPlayer)==True:
+        if board_analyzer.isCheckMate(self._board, self._otherPlayer) == True:
             #Game end conditions
             print "Congradulations! Player", self._currentPlayer, "has won!"
-            choice = ""
+            choice = None
             while choice != 'quit':
-                choice = raw_input("Type 'quit' to quit. ")
+                choice = raw_input("Enter 'quit' to exit. ")
 
         #Warn if king is in check
-        if board_analyzer.isCheck(self._board, self._otherPlayer)==True:
+        if board_analyzer.isCheck(self._board, self._otherPlayer) == True:
             print "Player", self._otherPlayer,"is in check!"
-        
-
+    
+        #Switches players
         if self._currentPlayer == constants.WHITE_PLAYER:
             self._currentPlayer = constants.BLACK_PLAYER
         else: 
             self._currentPlayer = constants.WHITE_PLAYER
+            
     def _getPlayersNextMove(self):
         """
         Retrieves player's next move. (e.g. "b1d4").
