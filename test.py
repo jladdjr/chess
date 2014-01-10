@@ -185,21 +185,14 @@ class ChessTest(unittest.TestCase):
 
         #Mock-up board functions
         b = g._board
-        a = g._boardAnalyzer
         b.isLegalMove = MagicMock(return_value=True)
-        a.isCheck     = MagicMock(return_value=False)
-        a.isCheckMate = MagicMock(return_value=False)
 
         self.assertFalse(b.isLegalMove.called)
-        self.assertFalse(a.isCheck.called)
-        self.assertFalse(a.isCheckMate.called)
         self.assertEqual(g._currentPlayer, constants.WHITE_PLAYER)
 
         g._nextTurn()
 
         b.isLegalMove.assert_called_with("b1c3", constants.WHITE_PLAYER)
-        self.assertTrue(a.isCheck.called)
-        self.assertTrue(a.isCheckMate.called)
         self.assertEqual(g._currentPlayer, constants.BLACK_PLAYER)
 
 
