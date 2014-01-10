@@ -51,6 +51,7 @@ class Game(object):
         move = self._board._moveConverter(move)
         while self._board.isLegalMove(self._currentPlayer, move) != True:
             move = self._getPlayersNextMove()
+            move = self._board._moveConverter(move)
 
         #Executes move
         self._board.movePiece(self._currentPlayer, move)

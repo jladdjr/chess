@@ -95,6 +95,8 @@ class Board(object):
         if self._board[move[0]][move[1]] == constants.EMPTY_SYMBOL:
             print "No piece there."
             return False
+        else:
+            validity = True
             
         #c)Tests if the game piece is not owned by the current player
         if currentPlayer != self.pieceOwner([move[0], move[1]]):
@@ -141,7 +143,7 @@ class Board(object):
                 validity = True
             else:
                 return False
-        """
+        
         #f)Tests whether current player's move will move current player in check
         self._testBoard = self._board
         testPiece = self._board[move[0]][move[1]]
@@ -152,7 +154,6 @@ class Board(object):
             return False
         else:
             validity = True
-        """
    
         return validity
 
