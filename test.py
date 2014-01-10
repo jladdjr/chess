@@ -264,56 +264,49 @@ class ChessTest(unittest.TestCase):
         b._board = ChessTest.board2
 
         #Pawn - move forward one space
-        self.assertTrue(b.isLegalMove("d2d3"))
+        self.assertTrue(b.isLegalMove("d2d3", constants.WHITE_PLAYER))
         
         #Rook - move forward several spaces
-        b._currentPlayer = constants.BLACK_PLAYER
-        self.assertTrue(b.isLegalMove("h8h4"))
+        self.assertTrue(b.isLegalMove("h8h4", constants.BLACK_PLAYER))
 
         #Rook - move across several spaces
-        self.assertTrue(b.isLegalMove("h8d8"))
+        self.assertTrue(b.isLegalMove("h8d8", constants.BLACK_PLAYER))
 
         #Knight - move forward and right
-        b._currentPlayer = constants.WHITE_PLAYER
-        self.assertTrue(b.isLegalMove("e3f5"))
+        self.assertTrue(b.isLegalMove("e3f5", constants.WHITE_PLAYER))
 
         #Knight - move left and up
-        b._currentPlayer = constants.BLACK_PLAYER
-        self.assertTrue(b.isLegalMove("b8d7"))
+        self.assertTrue(b.isLegalMove("b8d7", constants.BLACK_PLAYER))
 
         #Bishop - move diagnoally left
-        b._currentPlayer = constants.WHITE_PLAYER
-        self.assertTrue(b.isLegalMove("c1a3"))
+        self.assertTrue(b.isLegalMove("c1a3", constants.WHITE_PLAYER))
 
         #Bishop - move back and right
-        b._currentPlayer = constants.BLACK_PLAYER
-        self.assertTrue(b.isLegalMove("c6b7"))
+        self.assertTrue(b.isLegalMove("c6b7", constants.BLACK_PLAYER))
 
         #Queen - move right one space
-        b._currentPlayer = constants.WHITE_PLAYER
-        self.assertTrue(b.isLegalMove("d4e4"))
+        self.assertTrue(b.isLegalMove("d4e4", constants.WHITE_PLAYER))
 
         #Queen - move left several spaces
-        self.assertTrue(b.isLegalMove("d4b4"))
+        self.assertTrue(b.isLegalMove("d4b4", constants.WHITE_PLAYER))
 
         #Queen - move left diagonally
-        self.assertTrue(b.isLegalMove("d4b6"))
+        self.assertTrue(b.isLegalMove("d4b6", constants.WHITE_PLAYER))
 
         #King - move forward
-        b._currentPlayer = constants.BLACK_PLAYER
-        self.assertTrue(b.isLegalMove("e7e6"))
+        self.assertTrue(b.isLegalMove("e7e6", constants.BLACK_PLAYER))
 
         #King - move backward 
-        self.assertTrue(b.isLegalMove("e7e8"))
+        self.assertTrue(b.isLegalMove("e7e8", constants.BLACK_PLAYER))
 
         #King - move left 
-        self.assertTrue(b.isLegalMove("e7f7"))
+        self.assertTrue(b.isLegalMove("e7f7", constants.BLACK_PLAYER))
 
         #King - move right 
-        self.assertTrue(b.isLegalMove("e7d7"))
+        self.assertTrue(b.isLegalMove("e7d7", constants.BLACK_PLAYER))
 
         #King - move right diagonally 
-        self.assertTrue(b.isLegalMove("e7d6"))
+        self.assertTrue(b.isLegalMove("e7d6", constants.BLACK_PLAYER))
 
     def test_is_legal_move_improper_movement(self):
         from board import Board
@@ -322,38 +315,35 @@ class ChessTest(unittest.TestCase):
         b._board = ChessTest.board2
 
         #Pawn - move forward three
-        self.assertFalse(b.isLegalMove("h2h5"))
+        self.assertFalse(b.isLegalMove("h2h5", constants.WHITE_PLAYER))
 
         #Pawn - move left
-        b._currentPlayer = constants.BLACK_PLAYER
-        self.assertFalse(b.isLegalMove("g7h7"))
+        self.assertFalse(b.isLegalMove("g7h7", constants.BLACK_PLAYER))
 
         #Pawn - move backwards
-        b._currentPlayer = constants.WHITE_PLAYER
-        self.assertFalse(b.isLegalMove("d2d1"))
+        self.assertFalse(b.isLegalMove("d2d1", constants.WHITE_PLAYER))
 
         #Rook - move diagonally
-        self.assertFalse(b.isLegalMove("b3c4"))
+        self.assertFalse(b.isLegalMove("b3c4", constants.WHITE_PLAYER))
 
         #Knight - move forward two
-        self.assertFalse(b.isLegalMove("e3e5"))
+        self.assertFalse(b.isLegalMove("e3e5", constants.WHITE_PLAYER))
 
         #Bishop - move forward one
-        self.assertFalse(b.isLegalMove("c1c2"))
+        self.assertFalse(b.isLegalMove("c1c2", constants.WHITE_PLAYER))
 
         #Queen - move like knight
-        self.assertFalse(b.isLegalMove("d4b5"))
+        self.assertFalse(b.isLegalMove("d4b5", constants.WHITE_PLAYER))
 
         #King - move forward two
-        b._currentPlayer = constants.BLACK_PLAYER
-        self.assertFalse(b.isLegalMove("e7e5"))
+        self.assertFalse(b.isLegalMove("e7e5", constants.BLACK_PLAYER))
 
     def test_is_legal_move_piece_not_moved(self):
         from board import Board
         b = Board()
         b._board = ChessTest.board2
 
-        self.assertFalse(b.isLegalMove("c1c1"))
+        self.assertFalse(b.isLegalMove("c1c1", constants.WHITE_PLAYER))
 
     def test_is_legal_move_moving_into_occupied_space(self):
         from board import Board
@@ -362,11 +352,10 @@ class ChessTest(unittest.TestCase):
         b._board = ChessTest.board1
 
         #White rook moves into white pawn
-        self.assertFalse(b.isLegalMove("a1a2"))
+        self.assertFalse(b.isLegalMove("a1a2", constants.WHITE_PLAYER))
 
         #Black king moves into black bishop
-        b._currentPlayer = constants.BLACK_PLAYER
-        self.assertFalse(b.isLegalMove("e8f8"))
+        self.assertFalse(b.isLegalMove("e8f8", constants.BLACK_PLAYER))
 
     def test_is_legal_move_legal_kills(self):
         from board import Board
@@ -375,15 +364,13 @@ class ChessTest(unittest.TestCase):
         b._board = ChessTest.board1
 
         #White knight kills black pawn
-        self.assertTrue(b.isLegalMove("f3g5"))
+        self.assertTrue(b.isLegalMove("f3g5", constants.WHITE_PLAYER))
 
         #Black queen kills white bishop
-        b._currentPlayer = constants.BLACK_PLAYER
-        self.assertTrue(b.isLegalMove("f4c1"))
+        self.assertTrue(b.isLegalMove("f4c1", constants.BLACK_PLAYER))
 
         #White bishop kills black queen
-        b._currentPlayer = constants.WHITE_PLAYER
-        self.assertTrue(b.isLegalMove("c1f4"))
+        self.assertTrue(b.isLegalMove("c1f4", constants.WHITE_PLAYER))
 
     def test_is_legal_move_blocked_move(self):
         from board import Board
@@ -392,24 +379,21 @@ class ChessTest(unittest.TestCase):
         b._board = ChessTest.board1
 
         #Pawn tries to move forward two spaces, is blocked by knight
-        self.assertFalse(b.isLegalMove("a2a4"))
+        self.assertFalse(b.isLegalMove("a2a4", constants.WHITE_PLAYER))
 
         #Rook tries to move forward, is blocked by pawn
-        b._currentPlayer = constants.BLACK_PLAYER
-        self.assertFalse(b.isLegalMove("h8h5"))
+        self.assertFalse(b.isLegalMove("h8h5", constants.BLACK_PLAYER))
 
         #Rook tries to move across, is blocked by several pieces
-        self.assertFalse(b.isLegalMove("h8d8"))
+        self.assertFalse(b.isLegalMove("h8d8", constants.BLACK_PLAYER))
 
         #Knight 'jumps' - can't be blocked by any pieces
 
         #Bishop tries to move left diagonally, is blocked by pawn
-        b._currentPlayer = constants.WHITE_PLAYER
-        self.assertFalse(b.isLegalMove("f1c4"))
+        self.assertFalse(b.isLegalMove("f1c4", WHITE_PLAYER))
 
         #Queen tries to move across, is blocked by other queen
-        b._currentPlayer = constants.BLACK_PLAYER
-        self.assertFalse(b.isLegalMove("f4c4"))
+        self.assertFalse(b.isLegalMove("f4c4", constants.BLACK_PLAYER))
 
         #King can only move one space at a time
 
@@ -420,12 +404,10 @@ class ChessTest(unittest.TestCase):
         b._board = ChessTest.board1
 
         #Black pawn moves forward to kill white pawn
-        b._currentPlayer = constants.BLACK_PLAYER
-        self.assertFalse(b.isLegalMove("g5g4"))
+        self.assertFalse(b.isLegalMove("g5g4", constants.BLACK_PLAYER))
 
         #Knight moves forward three spaces to kill black pawn
-        b._currentPlayer = constants.WHITE_PLAYER
-        self.assertFalse(b.isLegalMove("a3a6"))
+        self.assertFalse(b.isLegalMove("a3a6", constants.WHITE_PLAYER))
     """
 
     #Tests for _isLegalMoveForPawn()
