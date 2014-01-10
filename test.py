@@ -197,7 +197,7 @@ class ChessTest(unittest.TestCase):
 
         g._nextTurn()
 
-        b.isLegalMove.assert_called_with("b1c3")
+        b.isLegalMove.assert_called_with("b1c3", constants.WHITE_PLAYER)
         self.assertTrue(a.isCheck.called)
         self.assertTrue(a.isCheckMate.called)
         self.assertEqual(g._currentPlayer, constants.BLACK_PLAYER)
@@ -340,6 +340,7 @@ class ChessTest(unittest.TestCase):
 
     def test_is_legal_move_piece_not_moved(self):
         from board import Board
+        import constants
         b = Board()
         b._board = ChessTest.board2
 
@@ -390,7 +391,7 @@ class ChessTest(unittest.TestCase):
         #Knight 'jumps' - can't be blocked by any pieces
 
         #Bishop tries to move left diagonally, is blocked by pawn
-        self.assertFalse(b.isLegalMove("f1c4", WHITE_PLAYER))
+        self.assertFalse(b.isLegalMove("f1c4", constants.WHITE_PLAYER))
 
         #Queen tries to move across, is blocked by other queen
         self.assertFalse(b.isLegalMove("f4c4", constants.BLACK_PLAYER))
@@ -673,44 +674,40 @@ class ChessTest(unittest.TestCase):
 
     """
     def test_is_check_mate(self):
-        from board_analyzer import BoardAnalyzer
-        a = BoardAnalyzer()
+        import board_analyer
 
-        self.assertTrue(a.isCheckMate(ChessTest.checkmate1, 1))
-        self.assertTrue(a.isCheckMate(ChessTest.checkmate2, 2))
+        self.assertTrue(board_analyzer.isCheckMate(ChessTest.checkmate1, constants.WHITE_PLAYER))
+        self.assertTrue(board_analyzer.isCheckMate(ChessTest.checkmate2, constants.BLACK_PLAYER))
 
     def test_is_check_mate_negative(self):
-        from board_analyzer import BoardAnalyzer
-        a = BoardAnalyzer()
+        import board_analyer
 
-        self.assertFalse(a.isCheckMate(ChessTest.board1, 1))
-        self.assertFalse(a.isCheckMate(ChessTest.board1, 2))
-        self.assertFalse(a.isCheckMate(ChessTest.board2, 1))
-        self.assertFalse(a.isCheckMate(ChessTest.board2, 2))
-        self.assertFalse(a.isCheckMate(ChessTest.check1, 1))
-        self.assertFalse(a.isCheckMate(ChessTest.check1, 2))
-        self.assertFalse(a.isCheckMate(ChessTest.check2, 1))
-        self.assertFalse(a.isCheckMate(ChessTest.check2, 2))
+        self.assertFalse(board_analyzer.isCheckMate(ChessTest.board1, constants.WHITE_PLAYER))
+        self.assertFalse(board_analyzer.isCheckMate(ChessTest.board1, constants.BLACK_PLAYER))
+        self.assertFalse(board_analyzer.isCheckMate(ChessTest.board2, constants.WHITE_PLAYER))
+        self.assertFalse(board_analyzer.isCheckMate(ChessTest.board2, constants.BLACK_PLAYER))
+        self.assertFalse(board_analyzer.isCheckMate(ChessTest.check1, constants.WHITE_PLAYER))
+        self.assertFalse(board_analyzer.isCheckMate(ChessTest.check1, constants.BLACK_PLAYER))
+        self.assertFalse(board_analyzer.isCheckMate(ChessTest.check2, constants.WHITE_PLAYER))
+        self.assertFalse(board_analyzer.isCheckMate(ChessTest.check2, constants.BLACK_PLAYER))
     """
 
     #Tests for isCheck()
 
     """
     def test_is_check(self):
-        from board_analyzer import BoardAnalyzer
-        a = BoardAnalyzer()
+        import board_analyer
     
-        self.assertTrue(a.isCheck(ChessTest.check1, 1))
-        self.assertTrue(a.isCheck(ChessTest.check2, 2))
+        self.assertTrue(board_analyzer.isCheck(ChessTest.check1, constants.WHITE_PLAYER))
+        self.assertTrue(board_analyzer.isCheck(ChessTest.check2, constants.BLACK_PLAYER))
         
     def test_is_check_negative(self):
-        from board_analyzer import BoardAnalyzer
-        a = BoardAnalyzer()
+        import board_analyer
 
-        self.assertFalse(a.isCheck(ChessTest.board1, 1))
-        self.assertFalse(a.isCheck(ChessTest.board1, 2))
-        self.assertFalse(a.isCheck(ChessTest.board2, 1))
-        self.assertFalse(a.isCheck(ChessTest.board2, 2))
+        self.assertFalse(board_analyzer.isCheck(ChessTest.board1, constants.WHITE_PLAYER))
+        self.assertFalse(board_analyzer.isCheck(ChessTest.board1, constants.BLACK_PLAYER))
+        self.assertFalse(board_analyzer.isCheck(ChessTest.board2, constants.WHITE_PLAYER))
+        self.assertFalse(board_analyzer.isCheck(ChessTest.board2, constants.BLACK_PLAYER))
     """
 
 if __name__ == '__main__':
