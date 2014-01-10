@@ -1,6 +1,7 @@
 #!/usr/bin/python
 
 import constants
+import board_analyzer
 
 class Board(object):
 
@@ -23,9 +24,6 @@ class Board(object):
                         ['n','p','','','','','*p','*n'],
                         ['r','p','','','','','*p','*r'] ]
 
-        #Current player
-        self._currentPlayer = constants.WHITE_PLAYER
-
     def getBoard(self):
         """
         Returns a copy of the current board's
@@ -46,8 +44,10 @@ class Board(object):
         move = self._moveConverter(specific_move)
         
         #Checks for owner of a given piece
-        if constants.BLACK_PLAYER_SYMBOL in self._board[specific_move[0][specific_move[1]]:
+        if constants.BLACK_PLAYER_SYMBOL in self._board[specific_move[0]][specific_move[1]]:
             return constants.BLACK_PLAYER
+        elif constants.EMPTY_SYMBOL == self._board[specific_move[0]][specific_move[1]]:
+            return constants.EMPTY_SYMBOL
         else:
             return constants.WHITE_PLAYER
     
@@ -70,7 +70,7 @@ class Board(object):
         move = new_move
         return move
         
-    def isLegalMove(self, move):
+    def isLegalMove(self, currentPlayer, move):
         """
         Determines if a move is legal or not.
         A move is not legal if any of the following is true:
@@ -103,19 +103,19 @@ class Board(object):
             return False
             
         #c)Tests if the game piece is not owned by the current player
-        if self._currentPlayer != self.pieceOwner([move[0], move[1]]):
+        if currentPlayer != self.pieceOwner([move[0], move[1]]):
             print "Piece not owned by player"
             return False
         else:
             validity = True
        
         #d)Tests if game piece owned by the current player occupies end destination
-        if self._currentPlayer == self.pieceOwner([move[2], move[3]]):
+        if currentPlayer == self.pieceOwner([move[2], move[3]]):
             print "Endpoint space has piece currently owned by player"
             return False
         else:
             validity = True
-
+        
         #e)Tests whether the move is legal for a specific piece
         if constants.PAWN_SYMBOL in self._board[move[0]][move[1]]:
             if self._isLegalMoveForPawn(move) == True:
@@ -147,18 +147,17 @@ class Board(object):
                 validity = True
             else:
                 return False
-        
+                
         #f)Tests whether current player's move will move current player in check
         
-        """
         #Creates a new board with which to test whether the move will put the king in check
-        """
         self._testBoard = self._board
         testPiece = self.board[move[0], move[1]]
         self._testBoard[move[2], move[3]] = testPiece
         
-        #CSW note: what we want to do here is access the check.method in board analyzer which has not been built yet
-        
+        if board_analyzer.isCheck(self._testBoard, currentPlayer):
+            pass
+            
         return validity
 
     def _isLegalMoveForRook(self, move):
@@ -265,7 +264,6 @@ class Board(object):
         Helper method for determining if move is legal for queen.
         A move for a queen is legal is the Queen i) stays in the same column, or ii)stays in the same row, or iii)changes the row and column by the same amount (as in up 3 over 3 or down 4 over 4)
         """
-        """
 
         #if queen stays in same column
         if move[0]==move[2]:
@@ -275,13 +273,11 @@ class Board(object):
             validity==True
         #if change of row and column is the same
         elif abs(move[2] - move[0]) == abs(move[3] - move[1]):
-            validity==True
+            validity=True
         else: 
             print "Not a valid move for a Queen"
             validity = False
         return validity
-        """
-        return True
 
     def _isLegalMoveForKing(self, move):
         """
@@ -315,10 +311,10 @@ class Board(object):
 
     def _isLegalMoveForPawn(self, move):
         """
-        #checks different situations, then returns either True or False
-        """
+        checks different situations, then returns either True or False
+        
         Helper method for determining if move is legal for pawn.
-        """
+        
         #moving ahead 2 spaces (for white piece or for black piece)
         if (move[1] + 2 == move[3] and move [0]==move[2] or move[1] - 2 == move[3] and move [0]==move[2]):
             #this should only work if the piece is in row 2 or row 7
@@ -361,7 +357,7 @@ class Board(object):
         @param move:        Four letter combination representing move. (e.g. "b3c4") 
         """
         """
-        #Converts move to new format
+        #Converts umove to new format
         move = self._moveConverter(move)
         
         #Checks validity of move and then moves piece
