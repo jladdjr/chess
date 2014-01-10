@@ -5,7 +5,7 @@ import sys
 
 import constants
 from board import Board
-from board_analyzer import BoardAnalyzer
+import board_analyzer
 
 class Game(object):
 
@@ -15,7 +15,6 @@ class Game(object):
         """
         #Create new game board
         self._board = Board() 
-        self._boardAnalyzer = BoardAnalyzer()
 
         #Record whose turn it is
         self._currentPlayer = constants.WHITE_PLAYER 
@@ -51,7 +50,7 @@ class Game(object):
         move = self._getPlayersNextMove()
 
         #If move is legal, make next move
-        while self._board.isLegalMove(move,self._currentPlayer) != True:
+        while self._board.isLegalMove(self._currentPlayer, move) != True:
             move = self._getPlayersNextMove()
 
         #Print board
@@ -65,7 +64,7 @@ class Game(object):
             self._otherPlayer = constants.WHITE_PLAYER
 
         #End game if king is in check-mate
-        if self._boardAnalyzer.isCheckMate(self._board, self._otherPlayer)==True:
+        if board_analyzer.isCheckMate(self._board, self._otherPlayer)==True:
             #Game end conditions
             print "Congradulations! Player", self._currentPlayer, "has won!"
             choice = ""
@@ -73,7 +72,7 @@ class Game(object):
                 choice = raw_input("Type 'quit' to quit. ")
 
         #Warn if king is in check
-        if self._boardAnalyzer.isCheck(self._board, self._otherPlayer)==True:
+        if board_analyzer.isCheck(self._board, self._otherPlayer)==True:
             print "Player", self._otherPlayer,"is in check!"
         
 
