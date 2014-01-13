@@ -1,5 +1,7 @@
 #!/usr/bin/python
 
+from operator import xor
+
 import constants
 import board_analyzer
 
@@ -161,36 +163,42 @@ class Board(object):
         """
         Helper method for determining if move is legal for rook.
         """
-        """
+        horizontal = None
+        vertical = None
+        horizontal_blocking = None
+        vertical_blocking = None
+            
         #Allows for horizontal movement
-        if move[0] == move[2]:
-            validity = True
-        else:
-            return False
-            
-        #Allows for vertical movement
         if move[1] == move[3]:
-            validity = True
-        else:
-            return False
-            
+            horizontal = True
+
+        #Allows for vertical movement
+        if move[0] == move[2]:
+            vertical = True
+        
         #Tests whether piece in path of horizontal movement
+        blocked_spaces = 0
         for space in range(move[0] + 1, move[2]):
             if constants.EMPTY_SYMBOL != self._board[space][move[1]]:
-                return False
-            else:
-                validity = True
-            
+                blocked_space += 1
+        if blocked_spaces == 0:
+            horizontal_blocking = True
+
         #Tests whether piece in path of vertical movement
+        blocked_spaces = 0
         for space in range(move[1] + 1, move[3]):
-            if constants.EMPTY_SYMBOL != self._board[move[0][space]]:
-                return False
-            else:
-                validity = True
+            if constants.EMPTY_SYMBOL != self._board[move[0]][space]:
+                blocked_spaces += 1
+        if blocked_spaces == 0:
+            vertical_blocking = True
+
+        if xor((horizontal and horizontal_blocking) == True, \
+            (vertical and vertical_blocking) == True):
+            validity = True
+        else:
+            return False
                 
         return validity
-        """
-        pass
 
     def _isLegalMoveForKnight(self, move):
         """
