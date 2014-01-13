@@ -118,7 +118,7 @@ class Board(object):
         
         #e)Tests whether the move is legal for a specific piece
         if constants.PAWN_SYMBOL in self._board[move[0]][move[1]]:
-            if self._isLegalMoveForPawn(move) == True:
+            if self._isLegalMoveForPawn(move, currentPlayer) == True:
                 validity = True
             else:
                 return False
@@ -367,43 +367,61 @@ class Board(object):
         
         return validity
 
-    def _isLegalMoveForPawn(self, move):
-        """
-        checks different situations, then returns either True or False
-        
-        Helper method for determining if move is legal for pawn.
-        
-        #moving ahead 2 spaces (for white piece or for black piece)
-        if (move[1] + 2 == move[3] and move [0]==move[2] or move[1] - 2 == move[3] and move [0]==move[2]):
-            #this should only work if the piece is in row 2 or row 7
-            if (move[1]==1 or move [1]==6):
-                validity=True
-            else:
-                print "You can't move 2 spaces from row ", move[1]
-                validity=False
-        #moving ahead 1 space (for white piece or black piece)
-        elif (move[1] + 1 == move[3] and move[0]==move[2] or move[1] - 1 == move[3] and move[0]==move[2]):
-            validity = True
-        #taking another piece for white piece
-        elif (move[1] + 1 == move[3] and move[0] + 1 == move[2] or move[1] + 1 ==move[3] and move[0] - 1 == move[2]):
-            if self._board[move[2]][move[3]] == "":
-                print "A pawn can not move diagonally to an empty space"
-                validity=False
-            else:
-                validity=True
-        #taking another piece for black piece
-        elif ((move[1] - 1 == move[3] and move[0] + 1 == move[2]) or (move[1] - 1 ==move[3] and move[0] - 1 == move[2])):
-            if self._board[move[2]][move[3]] == "":
-                print "A pawn can not move diagonally to an empty space"
-                validity=False
-            else:
-                validity=True
+    def _isLegalMoveForPawn(self, move, currentPlayer):
+        #white pieces can only move up, black pices can only move down
+        if ((currentPlayer==constants.WHITE_PLAYER and move[3]<move[1]) or (currentPlayer==constants.BLACK_PLAYER and move[1]<move[3])):
+            print "You can't move backwards"
+            return False
         else:
-            validity = False
+            #staying in the same column
+            if move[0]==move[2]:
+                #this only works if the pawn is being moved into an empty spot
+                if self._board[move[2]][move[3]]!=constants.EMPTY_SYMBOL:
+                    print "That spot has a piece in it!"
+                    return False
+                else:
+                    #moving ahead 2 spaces (for white piece or for black piece)
+                    if (move[1] + 2 == move[3] or move[1] - 2 == move[3]):
+                        #this should only work if the piece is in row 2 or row 7
+                        if (move[1]==1 or move [1]==6):
+                            validity=True
+                        else:
+                            print "You can't move 2 spaces from row ", move[1]+1
+                            validity=False
+                    #moving ahead 1 space (for white piece or black piece)
+                    elif (move[1] + 1 == move[3] or move[1] - 1 == move[3]):
+                        if move[3]==7 or move[3]==0:
+                            print "Your pawn has reached the other side. Which piece would you like to promote your pawn to?"
+                            newpiece = raw_input("Type q for queen, b for bishop, r for rook or c for castle")
+                            while newpiece not in 'qbkr':
+                                newpiece = raw_input("Try again. Type q for queen, b for bishop, k for knight or r for rook")
+                            else:
+                                newpiece = str(newpiece)
+                                self._board[move[2]][move[3]]=newpiece
+                                print self._board[move[2]][move[3]]
+                        validity = True
+                    else:
+                        print "A pawn can only move ahead 1 or 2 spaces, not ", abs(move[3]-move[1])
+                        return False
+                    
+            #taking another piece for white piece
+            elif ((abs(move[0]-move[2])==1) and move[1]+1==move[3]):
+                if self._board[move[2]][move[3]] == constants.EMPTY_SYMBOL:
+                    print "A pawn can not move diagonally to an empty space"
+                    return False
+                else:
+                    validity=True
+            #taking another piece for black piece
+            elif ((abs(move[0]-move[2])==1) and move[1]-1==move[3]):
+                if self._board[move[2]][move[3]] == constants.EMPTY_SYMBOL:
+                    print "A pawn can not move diagonally to an empty space"
+                    validity=False
+                else:
+                    validity=True
+            else:
+                validity = False
 
         return validity
-        """
-        return True
 
     ################################################################
 
