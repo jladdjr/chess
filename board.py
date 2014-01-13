@@ -5,6 +5,8 @@ from operator import xor
 import constants
 import board_analyzer
 
+import pdb
+
 class Board(object):
 
     def __init__(self):
@@ -253,23 +255,91 @@ class Board(object):
         Helper method for determining if move is legal for queen.
         A move for a queen is legal is the Queen i) stays in the same column, or ii)stays in the same row, or iii)changes the row and column by the same amount (as in up 3 over 3 or down 4 over 4)
         """
-        """
+        
         #if queen stays in same column
         if move[0]==move[2]:
-            validity=True
+            i=1
+            #check if there are any pieces in the way
+            if move[3]>move[1]:
+                while i<(abs(move[3]-move[1])):
+                    if constants.EMPTY_SYMBOL==self._board[move[0]][(move[3]-i)]:
+                        validity=True
+                        i+=1
+                    else:
+                        print "There is a piece in the way!"
+                        return False
+            else:
+                while i<(abs(move[1]-move[3])):
+                    if constants.EMPTY_SYMBOL==self._board[move[0]][(move[1]-i)]:
+                        validity=True
+                        i+=1
+                    else:
+                        print "There is a piece in the way!"
+                        return False
         #if queen stays in same row
         elif move[1]==move[3]:
-            validity==True
+            #check if there are any pieces in the way
+            i=1
+            if move[3]>move[1]:
+                while i<(abs(move[2]-move[0])):
+                    if constants.EMPTY_SYMBOL==self._board[(move[2]-i)][move[1]]:
+                        validity=True
+                        i+=1
+                    else:
+                        print "There is a piece in the way!"
+                        return False
+            else:
+                while i<(abs(move[0]-move[2])):
+                    if constants.EMPTY_SYMBOL==self._board[(move[0]-i)][move[1]]:
+                        validity=True
+                        i+=1
+                    else:
+                        print "There is a piece in the way!"
+                        return False
         #if change of row and column is the same
         elif abs(move[2] - move[0]) == abs(move[3] - move[1]):
+            #check if there are any pieces in the way
+            i=1
+            #if move is up and right
+            if (move[2]>move[0] and move[3]>move[1]):
+                while i<(abs(move[2]-move[0])):
+                    if constants.EMPTY_SYMBOL==self._board[(move[0]+i)][(move[1]+i)]:
+                        validity=True
+                    else:
+                        print "There is a piece in the way!"
+                        return False
+            #if move is down and right
+            if (move[2]>move[0] and move[1]>move[3]):
+                while i<(abs(move[2]-move[0])):
+                    if constants.EMPTY_SYMBOL==self._board[(move[0]+i)][(move[1]-i)]:
+                        validity=True
+                    else:
+                        print "There is a piece in the way!"
+                        return False
+            #if move is up and left
+            if (move[0]>move[2] and move[3]>move[1]):
+                while i<(abs(move[0]-move[2])):
+                    if constants.EMPTY_SYMBOL==self._board[(move[0]-i)][(move[1]+i)]:
+                        validity=True
+                    else:
+                        print "There is a piece in the way!"
+                        return False
+            #if move is down and left
+            if (move[0]>move[2] and move[1]>move[3]):
+                while i<(abs(move[0]-move[2])):
+                    if constants.EMPTY_SYMBOL==self._board[(move[0]-i)][(move[1]-i)]:
+                        validity=True
+                    else:
+                        print "There is a piece in the way!"
+                        return False
+            
             validity=True
+            
         else: 
-            print "Not a valid move for a Queen"
+            print "Our Queen would not do that; it is not a valid move for a queen!"
             validity = False
         return validity
-        """
-        return True
-
+        
     def _isLegalMoveForKing(self, move):
         """
         Helper method for determining if move is legal for king.
