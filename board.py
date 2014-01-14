@@ -291,7 +291,6 @@ class Board(object):
         """        
         Helper method for determining if move is legal for pawn.
         """
-        print currentPlayer
         if currentPlayer == constants.WHITE_PLAYER:
             #Pawns can move up one space at a time
             if move[1] + 1 == move[3]:
@@ -307,6 +306,7 @@ class Board(object):
             #Allows for NW attack
             if self.pieceOwner([move[0] - 1, move[1] + 1]) == constants.BLACK_PLAYER:
                 return True
+            #Pawn promotion
             
         elif currentPlayer == constants.BLACK_PLAYER:
             #Pawns can move up one space at a time

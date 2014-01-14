@@ -2,6 +2,14 @@
 
 import constants
 
+def kingLocator(board, currentPlayer):
+    """
+    Determines the location of the king of the opposite player
+
+    @return:     returns list indicies of opposing player's king
+                 (e.g. [0][4])
+    """
+
 def isCheckMate(board, player):
     """
     Determines if game has ended.
@@ -21,5 +29,6 @@ def isCheck(board, player):
     @param player:  Player (e.g. constants.WHITE_PLAYER)
     @return True if king is in check, False otherwise.
     """
-    #(Replace this with a real test)
-    return False
+
+        
+        

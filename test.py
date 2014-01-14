@@ -216,7 +216,6 @@ class ChessTest(unittest.TestCase):
 
     #Tests for movePiece()
 
-    """
     def test_move_piece_white_knight(self):
         from board import Board
         b = Board()
@@ -701,7 +700,6 @@ class ChessTest(unittest.TestCase):
         self.assertFalse(board_analyzer.isCheck(ChessTest.board1, constants.BLACK_PLAYER))
         self.assertFalse(board_analyzer.isCheck(ChessTest.board2, constants.WHITE_PLAYER))
         self.assertFalse(board_analyzer.isCheck(ChessTest.board2, constants.BLACK_PLAYER))
-    """
 
 if __name__ == '__main__':
     unittest.main()
