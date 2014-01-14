@@ -2,13 +2,23 @@
 
 import constants
 
-def kingLocator(board, currentPlayer):
+def kingLocator(board, player):
     """
     Determines the location of the king of the opposite player
 
     @return:     returns list indicies of opposing player's king
-                 (e.g. [0][4])
+                 (e.g. [0, 4])
     """
+    if player == constants.WHITE_PLAYER:
+        piece = constants.BLACK_PLAYER_SYMBOL + constants.KING_SYMBOL
+    else:
+        piece = constants.KING_SYMBOL
+        
+    for line in board:
+	    if piece in line:
+                location = [board.index(line), line.index(piece)]
+                
+    return location
 
 def isCheckMate(board, player):
     """
