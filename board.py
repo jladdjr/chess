@@ -156,7 +156,7 @@ class Board(object):
             return False
         else:
             validity = True
-   
+
         return validity
 
     def _isLegalMoveForRook(self, move):
