@@ -162,32 +162,63 @@ def isCheckByKing(location, board, player):
     """
     Helper method to determine if king under attack by knight.
     """
-    """
     if player == constants.WHITE_PLAYER:
-        #Checks locations where black kings could attack white king
-        if board[location[0] + 1][location[1] + 1] == constants.BLACK_KING_SYMBOL or \
-        board[location[0] - 1][location[1] - 1] == constants.BLACK_KING_SYMBOL or \
-        board[location[0] + 1][location[1] - 1] == constants.BLACK_KING_SYMBOL or \
-        board[location[0] - 1][location[1] + 1] == constants.BLACK_KING_SYMBOL or \
-        board[location[0] + 1][location[1]] == constants.BLACK_KING_SYMBOL or \
-        board[location[0]][location[1] + 1] == constants.BLACK_KING_SYMBOL or \
-        board[location[0] - 1][location[1]] == constants.BLACK_KING_SYMBOL or \
-        board[location[0]][location[1] - 1] == constants.BLACK_KING_SYMBOL:
-            return True
-        
-    if player == constants.BLACK_PLAYER:
-        #Checks locations where white kings could attack black king
-        if board[location[0] + 1][location[1] + 1] == constants.KING_SYMBOL or \
-        board[location[0] - 1][location[1] - 1] == constants.KING_SYMBOL or \
-        board[location[0] + 1][location[1] - 1] == constants.KING_SYMBOL or \
-        board[location[0] - 1][location[1] + 1] == constants.KING_SYMBOL or \
-        board[location[0] + 1][location[1]] == constants.KING_SYMBOL or \
-        board[location[0]][location[1] + 1] == constants.KING_SYMBOL or \
-        board[location[0] - 1][location[1]] == constants.KING_SYMBOL or \
-        board[location[0]][location[1] - 1] == constants.KING_SYMBOL:
-            return True
-            """
-    pass
+        #Checks locations not along an edge where black king could attack white king
+        if 1 <= location[0]:
+            if board[location[0] - 1][location[1]] == constants.BLACK_KING_SYMBOL:
+                return True
+        if location[0] <= 6:
+            if board[location[0] + 1][location[1]] == constants.BLACK_KING_SYMBOL:
+                return True
+        if 1 <= location[1]:
+            if board[location[0]][location[1] - 1] == constants.BLACK_KING_SYMBOL:
+                return True
+        if location[1] <= 6:
+            if board[location[0]][location[1] + 1] == constants.BLACK_KING_SYMBOL:
+                return True
+        if 1 <= location[0] and 1 <= location[1]:
+            if board[location[0] - 1][location[1] - 1] == constants.BLACK_KING_SYMBOL:
+                return True
+        if location[0] <= 6 and 1 <= location[1]:
+            if board[location[0] + 1][location[1] - 1] == constants.BLACK_KING_SYMBOL:
+                return True
+        if location[0] <= 1 and location[1] <= 6:
+            if board[location[0] - 1][location[1] + 1] == constants.BLACK_KING_SYMBOL:
+                return True
+        if location[0] <= 6 and location[1] <= 6:
+            if board[location[0] + 1][location[1] + 1] == constants.BLACK_KING_SYMBOL:
+                return True
+            
+        return False
+
+    else:
+        #Checks locations not along an edge where white kings could attack black king
+        if 1 <= location[0]:
+            if board[location[0] - 1][location[1]] == constants.KING_SYMBOL:
+                return True
+        if location[0] <= 6:
+            if board[location[0] + 1][location[1]] == constants.KING_SYMBOL:
+                return True
+        if 1 <= location[1]:
+            if board[location[0]][location[1] - 1] == constants.KING_SYMBOL:
+                return True
+        if location[1] <= 6:
+            if board[location[0]][location[1] + 1] == constants.KING_SYMBOL:
+                return True
+        if 1 <= location[0] and 1 <= location[1]:
+            if board[location[0] - 1][location[1] - 1] == constants.KING_SYMBOL:
+                return True
+        if location[0] <= 6 and 1 <= location[1]:
+            if board[location[0] + 1][location[1] - 1] == constants.KING_SYMBOL:
+                return True
+        if location[0] <= 1 and location[1] <= 6:
+            if board[location[0] - 1][location[1] + 1] == constants.KING_SYMBOL:
+                return True
+        if location[0] <= 6 and location[1] <= 6:
+            if board[location[0] + 1][location[1] + 1] == constants.KING_SYMBOL:
+                return True
+            
+        return False
 
 def isCheckByPawn(location, board, player):
     """
