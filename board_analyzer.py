@@ -60,7 +60,6 @@ def isCheckByHorizontal(location, board, player):
     """
     Helper method to determine if king under attack by rook or queen horizontally.
     """
-    """
     if player == constants.WHITE_PLAYER:
         #Checks for rooks and queens in the same row as king
         for space in range(len(board)):
@@ -104,13 +103,10 @@ def isCheckByHorizontal(location, board, player):
                             blocking += 1
                     if blocking == 0:
                         return True
-                        """
-    pass
                     
 def isCheckByVertical(location, board, player):
     """
     Helper method to determine if king under attack by rook or queen vertically
-    """
     """
     if player == constants.WHITE_PLAYER:
         #Checks for rooks and queens in same column as king
@@ -155,8 +151,6 @@ def isCheckByVertical(location, board, player):
                             blocking += 1
                     if blocking == 0:
                         return True
-                        """
-    pass
                     
 def isCheckByKing(location, board, player):
     """
