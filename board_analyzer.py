@@ -43,7 +43,7 @@ def isCheck(board, player):
     """
     location = kingLocator(board, player)
     
-    if isCheckByHorzontal(location, board, player) == True:
+    if isCheckByHorizontal(location, board, player) == True:
         return True
     if isCheckByVertical(location, board, player) == True:
         return True
@@ -59,6 +59,7 @@ def isCheck(board, player):
 def isCheckByHorizontal(location, board, player):
     """
     Helper method to determine if king under attack by rook or queen horizontally.
+    """
     """
     if player == constants.WHITE_PLAYER:
         #Checks for rooks and queens in the same row as king
@@ -103,10 +104,13 @@ def isCheckByHorizontal(location, board, player):
                             blocking += 1
                     if blocking == 0:
                         return True
+                        """
+    pass
                     
 def isCheckByVertical(location, board, player):
     """
     Helper method to determine if king under attack by rook or queen vertically
+    """
     """
     if player == constants.WHITE_PLAYER:
         #Checks for rooks and queens in same column as king
@@ -151,10 +155,13 @@ def isCheckByVertical(location, board, player):
                             blocking += 1
                     if blocking == 0:
                         return True
+                        """
+    pass
                     
 def isCheckByKing(location, board, player):
     """
     Helper method to determine if king under attack by knight.
+    """
     """
     if player == constants.WHITE_PLAYER:
         #Checks locations where black kings could attack white king
@@ -179,6 +186,8 @@ def isCheckByKing(location, board, player):
         board[location[0] - 1][location[1]] == constants.KING_SYMBOL or \
         board[location[0]][location[1] - 1] == constants.KING_SYMBOL:
             return True
+            """
+    pass
 
 def isCheckByPawn(location, board, player):
     """
@@ -186,19 +195,34 @@ def isCheckByPawn(location, board, player):
     """
     if player == constants.WHITE_PLAYER:
         #Checks if white king is under attack by black pawn
-        if board[location[0] + 1][location[1] + 1] == constants.BLACK_PAWN_SYMBOL or \
-        board[location[0] - 1][location[1] + 1] == constants.BLACK_PAWN_SYMBOL:
-            return True
+        if 1 <= location[0] and location[1] <= 6:
+            if board[location[0] - 1][location[1] + 1] == constants.BLACK_PAWN_SYMBOL:
+                return True
+            else:
+                return False
+        if location[0] <= 6 and location[1] <= 6:
+            if board[location[0] + 1][location[1] + 1] == constants.BLACK_PAWN_SYMBOL:
+                return True
+            else:
+                return False
 
     else:
         #Checks if black king under attack by white pawn
-        if board[location[0] + 1][location[1] - 1] == constants.PAWN_SYMBOL or \
-        board[location[0] - 1][location[1] - 1] == constants.PAWN_SYMBOL:
-            return True        
+        if 1 <= location[0] and 1 <= location[1]:
+            if board[location[0] - 1][location[1] - 1] == constants.PAWN_SYMBOL:
+                return True
+            else:
+                return False
+        if location[0] <= 6 and 1 <= location[1]:
+            if board[location[0] + 1][location[1] - 1] == constants.PAWN_SYMBOL:
+                return True
+            else:
+                return False
 
 def isCheckByKnight(location, board, player):
     """
     Helper method to determine if king under attack by knight.
+    """
     """
     if player == constants.WHITE_PLAYER:
         #Checks locations where black knight would put white king in check
@@ -223,6 +247,8 @@ def isCheckByKnight(location, board, player):
         board[location[0] - 2][location[1] + 1] == constants.KNIGHT or \
         board[location[0] - 1][location[1] + 2] == constants.KNIGHT:
             return True
+            """
+    pass
 
                     
 
