@@ -266,7 +266,6 @@ class Board(object):
         """
         Helper method for determining if move is legal for king.
         """
-        return True
         #Allows for horizontal movement
         if (move[0] + 1 == move[2] or move[0] - 1 == move[2]):
             return True

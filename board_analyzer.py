@@ -163,7 +163,7 @@ def isCheckByKing(location, board, player):
     Helper method to determine if king under attack by knight.
     """
     if player == constants.WHITE_PLAYER:
-        #Checks locations not along an edge where black king could attack white king
+        #Checks if white king is in check by black king
         if 1 <= location[0]:
             if board[location[0] - 1][location[1]] == constants.BLACK_KING_SYMBOL:
                 return True
@@ -192,7 +192,7 @@ def isCheckByKing(location, board, player):
         return False
 
     else:
-        #Checks locations not along an edge where white kings could attack black king
+        #Checks if black king is in check by white king
         if 1 <= location[0]:
             if board[location[0] - 1][location[1]] == constants.KING_SYMBOL:
                 return True
@@ -229,58 +229,71 @@ def isCheckByPawn(location, board, player):
         if 1 <= location[0] and location[1] <= 6:
             if board[location[0] - 1][location[1] + 1] == constants.BLACK_PAWN_SYMBOL:
                 return True
-            else:
-                return False
         if location[0] <= 6 and location[1] <= 6:
             if board[location[0] + 1][location[1] + 1] == constants.BLACK_PAWN_SYMBOL:
                 return True
-            else:
-                return False
+
+        return False
 
     else:
         #Checks if black king under attack by white pawn
         if 1 <= location[0] and 1 <= location[1]:
             if board[location[0] - 1][location[1] - 1] == constants.PAWN_SYMBOL:
                 return True
-            else:
-                return False
         if location[0] <= 6 and 1 <= location[1]:
             if board[location[0] + 1][location[1] - 1] == constants.PAWN_SYMBOL:
                 return True
-            else:
-                return False
+
+        return False
 
 def isCheckByKnight(location, board, player):
     """
     Helper method to determine if king under attack by knight.
     """
-    """
     if player == constants.WHITE_PLAYER:
         #Checks locations where black knight would put white king in check
-        if board[location[0] + 2][location[1] + 1] == constants.BLACK_KNIGHT or \
-        board[location[0] + 1][location[1] + 2] == constants.BLACK_KNIGHT or \
-        board[location[0] - 2][location[1] - 1] == constants.BLACK_KNIGHT or \
-        board[location[0] - 1][location[1] - 2] == constants.BLACK_KNIGHT or \
-        board[location[0] + 2][location[1] - 1] == constants.BLACK_KNIGHT or \
-        board[location[0] + 1][location[1] - 2] == constants.BLACK_KNIGHT or \
-        board[location[0] - 2][location[1] + 1] == constants.BLACK_KNIGHT or \
-        board[location[0] - 1][location[1] + 2] == constants.BLACK_KNIGHT:
-            return True
+        if 2 <= location[0] and 2 <= location[1]:
+            if board[location[0] - 2][location[1] - 1] == constants.BLACK_KNIGHT_SYMBOL or \
+               board[location[0] - 1][location[1] - 2] == constants.BLACK_KNIGHT_SYMBOL:
+                return True
+            
+        if location[0] <= 5 and location[1] <= 5:
+            if board[location[0] + 1][location[1] + 2] == constants.BLACK_KNIGHT_SYMBOL or \
+               board[location[0] + 2][location[1] + 1] == constants.BLACK_KNIGHT_SYMBOL:
+                return True
+        
+        if 2 <= location[0] and location[1] <= 5:
+            if board[location[0] - 2][location[1] + 1] == constants.BLACK_KNIGHT_SYMBOL or \
+            board[location[0] - 1][location[1] + 2] == constants.BLACK_KNIGHT_SYMBOL:
+                return True
+
+        if location[0] <= 5 and 2 <= location[1]:
+            if board[location[0] + 2][location[1] - 1] == constants.BLACK_KNIGHT_SYMBOL or \
+            board[location[0] + 1][location[1] - 2] == constants.BLACK_KNIGHT_SYMBOL:
+                return True
+
+        return False
         
     else:
         #Checks locations where white knight would put black king in check
-        if board[location[0] + 2][location[1] + 1] == constants.KNIGHT or \
-        board[location[0] + 1][location[1] + 2] == constants.KNIGHT or \
-        board[location[0] - 2][location[1] - 1] == constants.KNIGHT or \
-        board[location[0] - 1][location[1] - 2] == constants.KNIGHT or \
-        board[location[0] + 2][location[1] - 1] == constants.KNIGHT or \
-        board[location[0] + 1][location[1] - 2] == constants.KNIGHT or \
-        board[location[0] - 2][location[1] + 1] == constants.KNIGHT or \
-        board[location[0] - 1][location[1] + 2] == constants.KNIGHT:
-            return True
-            """
-    pass
-
-                    
-
+        if 2 <= location[0] and 2 <= location[1]:
+            if board[location[0] - 2][location[1] - 1] == constants.KNIGHT_SYMBOL or \
+               board[location[0] - 1][location[1] - 2] == constants.KNIGHT_SYMBOL:
+                return True
+            
+        if location[0] <= 5 and location[1] <= 5:
+            if board[location[0] + 1][location[1] + 2] == constants.KNIGHT_SYMBOL or \
+               board[location[0] + 2][location[1] + 1] == constants.KNIGHT_SYMBOL:
+                return True
         
+        if 2 <= location[0] and location[1] <= 5:
+            if board[location[0] - 2][location[1] + 1] == constants.KNIGHT_SYMBOL or \
+            board[location[0] - 1][location[1] + 2] == constants.KNIGHT_SYMBOL:
+                return True
+
+        if location[0] <= 5 and 2 <= location[1]:
+            if board[location[0] + 2][location[1] - 1] == constants.KNIGHT_SYMBOL or \
+            board[location[0] + 1][location[1] - 2] == constants.KNIGHT_SYMBOL:
+                return True
+
+        return False
