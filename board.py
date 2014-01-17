@@ -117,11 +117,6 @@ class Board(object):
             validity = True
         
         #e)Tests whether the move is legal for a specific piece
-        if constants.PAWN_SYMBOL in self._board[move[0]][move[1]]:
-            if self._isLegalMoveForPawn(move, currentPlayer) == True:
-                validity = True
-            else:
-                return False
         if constants.ROOK_SYMBOL in self._board[move[0]][move[1]]:
             if self._isLegalMoveForRook(move) == True:
                 validity = True
@@ -144,6 +139,11 @@ class Board(object):
                 return False
         if constants.KING_SYMBOL in self._board[move[0]][move[1]]:
             if self._isLegalMoveForKing(move) == True:
+                validity = True
+            else:
+                return False
+        if constants.PAWN_SYMBOL in self._board[move[0]][move[1]]:
+            if self._isLegalMoveForPawn(move, currentPlayer) == True:
                 validity = True
             else:
                 return False
@@ -259,6 +259,7 @@ class Board(object):
         #if queen stays in same column
         if move[0]==move[2]:
             i=1
+            validity = True
             #check if there are any pieces in the way
             if move[3]>move[1]:
                 while i<(abs(move[3]-move[1])):
@@ -280,6 +281,7 @@ class Board(object):
         elif move[1]==move[3]:
             #check if there are any pieces in the way
             i=1
+            validity = True
             if move[3]>move[1]:
                 while i<(abs(move[2]-move[0])):
                     if constants.EMPTY_SYMBOL==self._board[(move[2]-i)][move[1]]:
@@ -298,6 +300,7 @@ class Board(object):
                         return False
         #if change of row and column is the same
         elif abs(move[2] - move[0]) == abs(move[3] - move[1]):
+            pdb.set_trace()
             #check if there are any pieces in the way
             i=1
             #if move is up and right
@@ -384,21 +387,73 @@ class Board(object):
                     if (move[1] + 2 == move[3] or move[1] - 2 == move[3]):
                         #this should only work if the piece is in row 2 or row 7
                         if (move[1]==1 or move [1]==6):
+                            #should only work if there is no piece in the way
+                            i=1
+                            while i<(abs(move[3]-move[1])):
+                                if constants.EMPTY_SYMBOL==self._board[move[0]][(move[3]-i)]:
+                                    validity=True
+                                    i+=1
                             validity=True
                         else:
                             print "You can't move 2 spaces from row ", move[1]+1
                             validity=False
                     #moving ahead 1 space (for white piece or black piece)
                     elif (move[1] + 1 == move[3] or move[1] - 1 == move[3]):
+                        #pawn promotion
                         if move[3]==7 or move[3]==0:
-                            print "Your pawn has reached the other side. Which piece would you like to promote your pawn to?"
-                            newpiece = raw_input("Type q for queen, b for bishop, r for rook or c for castle")
-                            while newpiece not in 'qbkr':
-                                newpiece = raw_input("Try again. Type q for queen, b for bishop, k for knight or r for rook")
+                            print "Your pawn has reached the other side. Which piece would you like to promote your pawn to? \n"
+                            newpiece = raw_input("Type q for queen, b for bishop, n for knight or r for rook")
+                            while newpiece not in 'qbnr':
+                                newpiece = raw_input("Try again. Type q for queen, b for bishop, n for knight or r for rook")
                             else:
-                                newpiece = str(newpiece)
-                                self._board[move[2]][move[3]]=newpiece
-                                print self._board[move[2]][move[3]]
+                                if currentPlayer == constants.WHITE_PLAYER:
+                                    if newpiece == 'q':
+                                        newpiece = constants.QUEEN_SYMBOL
+                                        self._board[move[0]][move[1]]=newpiece
+                                        a = self._board[move[0]][move[1]]
+                                        b = constants.QUEEN_SYMBOL
+                                        print a
+                                        print b
+                                        if a==b:
+                                            print 'yes'
+                                        else:
+                                            print 'no'    
+                                    elif newpiece == 'b':
+                                        newpiece = constants.BISHOP_SYMBOL
+                                        self._board[move[0]][move[1]]=newpiece
+                                        print self._board[move[0]][move[1]]
+                                    elif newpiece == 'n':
+                                        newpiece = constants.KNIGHT_SYMBOL
+                                        self._board[move[0]][move[1]]=newpiece
+                                        print self._board[move[0]][move[1]]
+                                    else:
+                                        newpiece = constants.ROOK_SYMBOL
+                                        self._board[move[0]][move[1]]=newpiece
+                                        print self._board[move[0]][move[1]]
+                                else:
+                                    if newpiece == 'q':
+                                        newpiece = constants.BLACK_PLAYER_SYMBOL+constants.QUEEN_SYMBOL
+                                        self._board[move[0]][move[1]]=newpiece
+                                        a = self._board[move[0]][move[1]]
+                                        b = constants.QUEEN_SYMBOL
+                                        print a
+                                        print b
+                                        if a==b:
+                                            print 'yes'
+                                        else:
+                                            print 'no'    
+                                    elif newpiece == 'b':
+                                        newpiece = constants.BLACK_PLAYER_SYMBOL+constants.BISHOP_SYMBOL
+                                        self._board[move[0]][move[1]]=newpiece
+                                        print self._board[move[0]][move[1]]
+                                    elif newpiece == 'n':
+                                        newpiece = constants.BLACK_PLAYER_SYMBOL+constants.KNIGHT_SYMBOL
+                                        self._board[move[0]][move[1]]=newpiece
+                                        print self._board[move[0]][move[1]]
+                                    else:
+                                        newpiece = constants.BLACK_PLAYER_SYMBOL+constants.ROOK_SYMBOL
+                                        self._board[move[0]][move[1]]=newpiece
+                                        print self._board[move[0]][move[1]]
                         validity = True
                     else:
                         print "A pawn can only move ahead 1 or 2 spaces, not ", abs(move[3]-move[1])
