@@ -56,6 +56,37 @@ def isCheck(board, player):
 
     return False
 
+def isCheckByDiagonal(location, board, player):
+    """
+    Helper method to determine if king under attack by rook or queen horizontally.
+    """
+    """
+    if player == constants.WHITE_PLAYER:
+    #For NE diagonal
+        for space in range(location[0] + 1, len(board)):
+            if board[location[0] + space, location[1] + space] == constants.BLACK_BISHOP_SYMBOL or \
+               board[location[0] + space, location[1] + space] == constants.BLACK_QUEEN_SYMBOL:
+                return True
+    #For NW diagonal
+        for space in range(location[0] + 1, len(board)):
+            if board[location[0] - space, location[1] + space] == constants.BLACK_BISHOP_SYMBOL or \
+               board[location[0] - space, location[1] + space] == constants.BLACK_QUEEN_SYMBOL:
+                return True
+    #For SE diagonal
+        for space in range(location[0] + 1, len(board)):
+            if board[location[0] + space, location[1] - space] == constants.BLACK_BISHOP_SYMBOL or \
+               board[location[0] + space, location[1] - space] == constants.BLACK_QUEEN_SYMBOL:
+                return True
+    #For SW diagonal
+        for space in range(location[0] + 1, len(board)):
+            if board[location[0] - space, location[1] - space] == constants.BLACK_BISHOP_SYMBOL or \
+               board[location[0] - space, location[1] - space] == constants.BLACK_QUEEN_SYMBOL:
+                return True
+        
+    else:
+    """
+    pass
+
 def isCheckByHorizontal(location, board, player):
     """
     Helper method to determine if king under attack by rook or queen horizontally.
@@ -81,6 +112,8 @@ def isCheckByHorizontal(location, board, player):
                             blocking += 1
                     if blocking == 0:
                         return True
+
+        return False
                     
     else:
         #Checks for rooks and queens in the same row as king
@@ -103,6 +136,8 @@ def isCheckByHorizontal(location, board, player):
                             blocking += 1
                     if blocking == 0:
                         return True
+
+        return False
                     
 def isCheckByVertical(location, board, player):
     """
@@ -130,6 +165,8 @@ def isCheckByVertical(location, board, player):
                     if blocking == 0:
                         return True
                     
+        return False
+                    
     else:
         #Checks for rooks and queens in same column as king
         for space in range(len(board)):
@@ -151,6 +188,8 @@ def isCheckByVertical(location, board, player):
                             blocking += 1
                     if blocking == 0:
                         return True
+
+        return False
                     
 def isCheckByKing(location, board, player):
     """
