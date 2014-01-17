@@ -192,7 +192,8 @@ class ChessTest(unittest.TestCase):
 
         g._nextTurn()
 
-        b.isLegalMove.assert_called_with("b1c3", constants.WHITE_PLAYER)
+        b.isLegalMove.assert_called_with(constants.WHITE_PLAYER, [1, 0, 2, 2])
+
         self.assertEqual(g._currentPlayer, constants.BLACK_PLAYER)
 
 
