@@ -143,7 +143,7 @@ class Board(object):
             else:
                 return False
         if constants.PAWN_SYMBOL in self._board[move[0]][move[1]]:
-            if self._isLegalMoveForPawn(move, currentPlayer) == True:
+            if self._isLegalMoveForPawn(move) == True:
                 validity = True
             else:
                 return False
@@ -373,7 +373,8 @@ class Board(object):
         
         return validity
 
-    def _isLegalMoveForPawn(self, move, currentPlayer):
+    def _isLegalMoveForPawn(self, move):
+        currentPlayer = self.pieceOwner(move)
         #white pieces can only move up, black pices can only move down
         if ((currentPlayer==constants.WHITE_PLAYER and move[3]<move[1]) or (currentPlayer==constants.BLACK_PLAYER and move[1]<move[3])):
             print "You can't move backwards"
