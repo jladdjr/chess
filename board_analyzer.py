@@ -459,7 +459,7 @@ def canPieceMoveToSpot(location,player,spot):
     row+=1
     return validity
 
-
+"""
 zzz                = [ ['r','p','','','','','*p','*r'],
                         ['n','p','','','','','*p','*n'],
                         ['b','p','','','','','*p',''],
@@ -469,4 +469,5 @@ zzz                = [ ['r','p','','','','','*p','*r'],
                         ['n','p','','','','','*p','*n'],
                         ['r','p','','','','','*p','*r'] ]
 isCheckMate(zzz,1)
+"""
 print "???"
