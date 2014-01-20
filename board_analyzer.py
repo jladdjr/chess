@@ -43,6 +43,8 @@ def isCheck(board, player):
     """
     location = kingLocator(board, player)
     
+    if isCheckByDiagonal(location, board, player) == True:
+        return True
     if isCheckByHorizontal(location, board, player) == True:
         return True
     if isCheckByVertical(location, board, player) == True:
@@ -60,32 +62,109 @@ def isCheckByDiagonal(location, board, player):
     """
     Helper method to determine if king under attack by rook or queen horizontally.
     """
-    """
+    acceptable = [0, 1, 2, 3, 4, 5, 6, 7]
+
     if player == constants.WHITE_PLAYER:
-    #For NE diagonal
-        for space in range(location[0] + 1, len(board)):
-            if board[location[0] + space, location[1] + space] == constants.BLACK_BISHOP_SYMBOL or \
-               board[location[0] + space, location[1] + space] == constants.BLACK_QUEEN_SYMBOL:
-                return True
-    #For NW diagonal
-        for space in range(location[0] + 1, len(board)):
-            if board[location[0] - space, location[1] + space] == constants.BLACK_BISHOP_SYMBOL or \
-               board[location[0] - space, location[1] + space] == constants.BLACK_QUEEN_SYMBOL:
-                return True
-    #For SE diagonal
-        for space in range(location[0] + 1, len(board)):
-            if board[location[0] + space, location[1] - space] == constants.BLACK_BISHOP_SYMBOL or \
-               board[location[0] + space, location[1] - space] == constants.BLACK_QUEEN_SYMBOL:
-                return True
-    #For SW diagonal
-        for space in range(location[0] + 1, len(board)):
-            if board[location[0] - space, location[1] - space] == constants.BLACK_BISHOP_SYMBOL or \
-               board[location[0] - space, location[1] - space] == constants.BLACK_QUEEN_SYMBOL:
-                return True
+        #Testing for check from NE diagonal
+        space = 1
+        while location[0] + space in acceptable and location[1] + space in acceptable:
+            if board[location[0] + space][location[1] + space] == constants.EMPTY_SYMBOL:
+                space += 1
+                continue
+            if board[location[0] + space][location[1] + space] == constants.BLACK_BISHOP_SYMBOL or \
+               board[location[0] + space][location[1] + space] == constants.BLACK_QUEEN_SYMBOL:
+               return True
+            else:
+               break
+                
+        #Testing for check from NW diagonal
+        space = 1
+        while location[0] - space in acceptable and location[1] + space in acceptable:
+            if board[location[0] - space][location[1] + space] == constants.EMPTY_SYMBOL:
+                space += 1
+                continue
+            if board[location[0] - space][location[1] + space] == constants.BLACK_BISHOP_SYMBOL or \
+               board[location[0] - space][location[1] + space] == constants.BLACK_QUEEN_SYMBOL:
+               return True
+            else:
+               break
         
+        #Testing for check from SE diagonal        
+        space = 1
+        while location[0] + space in acceptable and location[1] - space in acceptable:
+            if board[location[0] + space][location[1] - space] == constants.EMPTY_SYMBOL:
+                space += 1
+                continue
+            if board[location[0] + space][location[1] - space] == constants.BLACK_BISHOP_SYMBOL or \
+               board[location[0] + space][location[1] - space] == constants.BLACK_QUEEN_SYMBOL:
+               return True
+            else:
+               break
+         
+        #Testing for check from SW diagonal        
+        space = 1
+        while location[0] - space in acceptable and location[1] - space in acceptable:
+            if board[location[0] - space][location[1] - space] == constants.EMPTY_SYMBOL:
+                space += 1
+                continue
+            if board[location[0] - space][location[1] - space] == constants.BLACK_BISHOP_SYMBOL or \
+               board[location[0] - space][location[1] - space] == constants.BLACK_QUEEN_SYMBOL:
+               return True
+            else:
+               break
+         
+        return False
+         
     else:
-    """
-    pass
+        #Testing for check from NE diagonal
+        space = 1
+        while location[0] + space in acceptable and location[1] + space in acceptable:
+            if board[location[0] + space][location[1] + space] == constants.EMPTY_SYMBOL:
+                space += 1
+                continue
+            if board[location[0] + space][location[1] + space] == constants.BISHOP_SYMBOL or \
+               board[location[0] + space][location[1] + space] == constants.QUEEN_SYMBOL:
+               return True
+            else:
+               break
+                
+        #Testing for check from NW diagonal
+        space = 1
+        while location[0] - space in acceptable and location[1] + space in acceptable:
+            if board[location[0] - space][location[1] + space] == constants.EMPTY_SYMBOL:
+                space += 1
+                continue
+            if board[location[0] - space][location[1] + space] == constants.BISHOP_SYMBOL or \
+               board[location[0] - space][location[1] + space] == constants.QUEEN_SYMBOL:
+               return True
+            else:
+               break
+        
+        #Testing for check from SE diagonal        
+        space = 1
+        while location[0] + space in acceptable and location[1] - space in acceptable:
+            if board[location[0] + space][location[1] - space] == constants.EMPTY_SYMBOL:
+                space += 1
+                continue
+            if board[location[0] + space][location[1] - space] == constants.BISHOP_SYMBOL or \
+               board[location[0] + space][location[1] - space] == constants.QUEEN_SYMBOL:
+               return True
+            else:
+               break
+         
+        #Testing for check from SW diagonal        
+        space = 1
+        while location[0] - space in acceptable and location[1] - space in acceptable:
+            if board[location[0] - space][location[1] - space] == constants.EMPTY_SYMBOL:
+                space += 1
+                continue
+            if board[location[0] - space][location[1] - space] == constants.BISHOP_SYMBOL or \
+               board[location[0] - space][location[1] - space] == constants.QUEEN_SYMBOL:
+               return True
+            else:
+               break
+         
+        return False
 
 def isCheckByHorizontal(location, board, player):
     """
