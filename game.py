@@ -59,13 +59,13 @@ class Game(object):
         #Prints board
         os.system('clear')
         self._board.printBoard()
-    
+
         #Creates variable other_player
         if self._currentPlayer == constants.WHITE_PLAYER:
             self._otherPlayer = constants.BLACK_PLAYER
         else:
             self._otherPlayer = constants.WHITE_PLAYER
-    
+        
         #End game conditions
         if board_analyzer.isCheckMate(self._board, self._otherPlayer) == True:
             print "Player",self._currentPlayer,"has won the game!"

@@ -1,6 +1,7 @@
 #!/usr/bin/python
 
 import constants
+from copy import deepcopy
 
 def kingLocator(board, player):
     """
@@ -30,18 +31,112 @@ def isCheckMate(board, player):
     @param player:  Player (e.g. constants.WHITE_PLAYER)
     @return True if game has ended, False otherwise.
     """
-    #Tests if king can move out of check
-    return False
+    location = kingLocator(board, player) #####
+    acceptable = [0, 1, 2, 3, 4, 5, 6, 7]
 
-def isCheck(board, player):
+    #Tests if king is in check
+    if isCheckStatic == False:
+        return False
+    
+    #Tests if king can move/attack out of check
+    escapeRoutes = [[-1, -1], [-1, 0], [-1, 1], [0, -1], [0, 1], [1, -1], [1, 0], [1, 1]]
+    for route in escapeRoutes:
+        route[0] = route[0] + location[0]
+        route[1] = route[1] + location[1]
+        testMove = location + route
+        if testMove[0] not in acceptable or testMove[1] not in acceptable:
+            continue
+        if self._board.isLegalMove(player, testMove) == True: #####
+            if isCheck(board, player, testMove) == False:
+                return False
+    
+    #Tests if king can get blocked out of check - for NE/SW diagonal
+    if isCheckByDiagonal(location, board, player) == True:
+        for space in range(-len(board), len(board)):
+            for horizontalSpace in range(len(board)):
+                for verticalSpace in range(len(board)):
+                    if location[0] + space not in acceptable or \
+                       location[1] + space not in acceptable:
+                        continue
+                    move = [horizontalSpace, verticalSpace, location[0] + space, location[1] + space]
+                    if isLegalMove(player, move) == True:
+                        if isCheck(board, player, move) == False: #####
+                            return False
+                    
+    #Tests if king can get blocked out of check - for NW/SE diagonal
+    if isCheckByDiagonal(location, board, player) == True:
+        for space in range(-len(board), len(board)):
+            for horizontalSpace in range(len(board)):
+                for verticalSpace in range(len(board)):
+                    if location[0] + space not in acceptable or \
+                       location[1] + space not in acceptable:
+                        continue
+                    move = [horizontalSpace, verticalSpace, location[0] - space, location[1] + space]
+                    if isLegalMove(player, move) == True:
+                        if isCheck(board, player, move) == False: #####
+                            return False
+
+    #Tests if king can get blocked out of check - for horizontal check
+    if isCheckByHorizontal(location, board, player) == True:
+        for space in range(len(board)):
+            for horizontalSpace in range(len(board)):
+                for verticalSpace in range(len(board)):
+                    move = [horizontalSpace, verticalSpace, space, location[1]]
+                    if isLegalMove(player, move) == True:
+                        if isCheck(board, player, move) == False: #####
+                            return False
+                    
+    #Tests if king can get blocked out of check - for vertical check
+    if isCheckByVertical(location, board, player) == True:
+        for space in range(len(board)):
+            for horizontalSpace in range(len(board)):
+                for verticalSpace in range(len(board)):
+                    move = [horizontalSpace, verticalSpace, location[0], space]
+                    if isLegalMove(player, move) == True:
+                        if isCheck(board, player, move) == False: #####
+                            return False
+                    
+    return True
+
+def isCheck(board, player, move):
     """
-    Determines if a king is in check.
+    Determines if king is in check after move.
 
     @param board:   A list of lists representing the board state.
     @param player:  Player (e.g. constants.WHITE_PLAYER)
     @return True if king is in check, False otherwise.
     """
-    location = kingLocator(board, player)
+    testBoard = deepcopy(board)
+    testPiece = board[move[0]][move[1]]
+    testBoard[move[2]][move[3]] = testPiece
+    testBoard[move[0]][move[1]] = constants.EMPTY_SYMBOL
+
+    location = kingLocator(testBoard, player)
+    
+    if isCheckByDiagonal(location, testBoard, player) == True:
+        return True
+    if isCheckByHorizontal(location, testBoard, player) == True:
+        return True
+    if isCheckByVertical(location, testBoard, player) == True:
+        return True
+    if isCheckByKing(location, testBoard, player) == True:
+        return True
+    if isCheckByPawn(location, testBoard, player) == True:
+        return True
+    if isCheckByKnight(location, testBoard, player) == True:
+        return True
+
+    return False
+
+def isCheckStatic(location, board):
+    """
+    Determines if king is in check.
+    
+    @param board:   A list of lists representing the board state.
+    @param player:  Player (e.g. constants.WHITE_PLAYER)
+    @return True if king is in check, False otherwise.
+    """
+    location = kingLocator(testBoard, player)
     
     if isCheckByDiagonal(location, board, player) == True:
         return True
@@ -56,7 +151,7 @@ def isCheck(board, player):
     if isCheckByKnight(location, board, player) == True:
         return True
 
-    return False
+    return False    
 
 def isCheckByDiagonal(location, board, player):
     """

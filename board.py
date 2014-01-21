@@ -1,7 +1,6 @@
 #!/usr/bin/python
 
 from operator import xor
-from copy import deepcopy
 
 import constants
 import board_analyzer
@@ -148,12 +147,7 @@ class Board(object):
                 return False
         
         #f)Tests whether current player's move will move current player in check
-        self._testBoard = deepcopy(self._board)
-        testPiece = self._board[move[0]][move[1]]
-        self._testBoard[move[2]][move[3]] = testPiece
-        self._testBoard[move[0]][move[1]] = constants.EMPTY_SYMBOL
-        
-        if board_analyzer.isCheck(self._testBoard, currentPlayer) == True:
+        if board_analyzer.isCheck(self._board, currentPlayer, move) == True:
             print "Cannot move into check."
             return False
         else:
@@ -204,6 +198,7 @@ class Board(object):
         """
         Helper method for determining if move is legal for knight.
         """
+        return True
         if (move[0] + 2 == move[2] and move[1] + 1 == move[3]) or \
         (move[0] + 2 == move[2] and move[1] - 1 == move[3]) or \
         (move[0] - 2 == move[2] and move[1] + 1 == move[3]) or \
@@ -266,6 +261,7 @@ class Board(object):
         """
         Helper method for determining if move is legal for king.
         """
+        return True
         #Allows for horizontal movement
         if (move[0] + 1 == move[2] or move[0] - 1 == move[2]):
             return True
