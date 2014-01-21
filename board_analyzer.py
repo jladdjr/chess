@@ -30,7 +30,7 @@ def isCheckMate(board, player):
     @param player:  Player (e.g. constants.WHITE_PLAYER)
     @return True if game has ended, False otherwise.
     """
-    #(Replace this with a real test)
+    #Tests if king can move out of check
     return False
 
 def isCheck(board, player):

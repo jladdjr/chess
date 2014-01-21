@@ -66,8 +66,15 @@ class Game(object):
         else:
             self._otherPlayer = constants.WHITE_PLAYER
     
-        #End game conditions -- needs to be built
-
+        #End game conditions
+        if board_analyzer.isCheckMate(self._board, self._otherPlayer) == True:
+            print "Player",self._currentPlayer,"has won the game!"
+            choice = None
+            while choice != 'quit':
+                choice = raw_input("Type 'quit' to exit. ")
+            else:
+                sys.exit(0)
+                                      
         #Switches players
         if self._currentPlayer == constants.WHITE_PLAYER:
             self._currentPlayer = constants.BLACK_PLAYER
