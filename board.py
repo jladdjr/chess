@@ -148,7 +148,7 @@ class Board(object):
         
         #f)Tests whether current player's move will move current player in check
         if board_analyzer.isCheck(self._board, currentPlayer, move) == True:
-            print "Cannot move into check."
+            print "Watch check."
             return False
         else:
             validity = True
@@ -176,7 +176,7 @@ class Board(object):
         blocked_spaces = 0
         for space in range(move[0] + 1, move[2]):
             if constants.EMPTY_SYMBOL != self._board[space][move[1]]:
-                blocked_space += 1
+                blocked_spaces += 1
         if blocked_spaces == 0:
             horizontal_blocking = True
 
@@ -252,6 +252,7 @@ class Board(object):
         Calls isLegalMoveForRook and isLegalMoveForBishop since queen
         movements are either rook-like or bishop-like
         """
+        return True
         if xor(self._isLegalMoveForRook(move), self._isLegalMoveForBishop(move)) == True:
             return True
         else:

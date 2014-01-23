@@ -34,7 +34,6 @@ class Game(object):
         """
         Main game loop.
         """
-
         #Print initial board
         self._board.printBoard()
 
@@ -67,7 +66,8 @@ class Game(object):
             self._otherPlayer = constants.WHITE_PLAYER
         
         #End game conditions
-        if board_analyzer.isCheckMate(self._board, self._otherPlayer) == True:
+        board = self._board.getBoard()
+        if board_analyzer.isCheckMate(board, self._board, self._otherPlayer) == True:
             print "Player",self._currentPlayer,"has won the game!"
             choice = None
             while choice != 'quit':
