@@ -2,7 +2,6 @@
 
 import constants
 from copy import deepcopy
-import pdb
 
 def kingLocator(board, player):
     """
@@ -38,7 +37,7 @@ def isCheckMate(board, boardObject, player):
     #Tests if king is in check
     if isCheckStatic(board, player) == False:
         return False
-    """
+
     #Tests if king can move/attack out of check
     escapeRoutes = [[-1, -1], [-1, 0], [-1, 1], [0, -1], [0, 1], [1, -1], [1, 0], [1, 1]]
     for route in escapeRoutes:
@@ -50,8 +49,7 @@ def isCheckMate(board, boardObject, player):
         if boardObject.isLegalMove(player, testMove) == True:
             if isCheck(board, player, testMove) == False:
                 return False
-    """
-    pdb.set_trace()
+
     #Tests if king can get blocked out of check - for NE/SW diagonal
     if isCheckByDiagonal(location, board, player) == True:
         for space in range(-len(board), len(board)):
@@ -62,9 +60,9 @@ def isCheckMate(board, boardObject, player):
                         continue
                     move = [horizontalSpace, verticalSpace, location[0] + space, location[1] + space]
                     if boardObject.isLegalMove(player, move) == True:
-                        if isCheck(testBoard, player, move) == False:
+                        if isCheck(board, player, move) == False:
                             return False
-    """              
+                   
     #Tests if king can get blocked out of check - for NW/SE diagonal
     if isCheckByDiagonal(location, board, player) == True:
         for space in range(-len(board), len(board)):
@@ -74,18 +72,19 @@ def isCheckMate(board, boardObject, player):
                        location[1] + space not in acceptable:
                         continue
                     move = [horizontalSpace, verticalSpace, location[0] - space, location[1] + space]
-                    if isLegalMove(player, move) == True:
-                        if isCheck(board, player, move) == False: #####
+                    if boardObject.isLegalMove(player, move) == True:
+                        if isCheck(board, player, move) == False:
                             return False
-
+    
     #Tests if king can get blocked out of check - for horizontal check
     if isCheckByHorizontal(location, board, player) == True:
         for space in range(len(board)):
             for horizontalSpace in range(len(board)):
                 for verticalSpace in range(len(board)):
                     move = [horizontalSpace, verticalSpace, space, location[1]]
-                    if isLegalMove(player, move) == True:
-                        if isCheck(board, player, move) == False: #####
+                    if boardObject.isLegalMove(player, move) == True:
+                        print move
+                        if isCheck(board, player, move) == False:
                             return False
                     
     #Tests if king can get blocked out of check - for vertical check
@@ -94,10 +93,11 @@ def isCheckMate(board, boardObject, player):
             for horizontalSpace in range(len(board)):
                 for verticalSpace in range(len(board)):
                     move = [horizontalSpace, verticalSpace, location[0], space]
-                    if isLegalMove(player, move) == True:
-                        if isCheck(board, player, move) == False: #####
+                    if boardObject.isLegalMove(player, move) == True:
+                        if isCheck(board, player, move) == False:
+                            print move
                             return False
-               """     
+    
     return True
 
 def isCheck(board, player, move):
