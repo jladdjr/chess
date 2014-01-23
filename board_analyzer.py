@@ -83,7 +83,6 @@ def isCheckMate(board, boardObject, player):
                 for verticalSpace in range(len(board)):
                     move = [horizontalSpace, verticalSpace, space, location[1]]
                     if boardObject.isLegalMove(player, move) == True:
-                        print move
                         if isCheck(board, player, move) == False:
                             return False
                     
@@ -95,7 +94,6 @@ def isCheckMate(board, boardObject, player):
                     move = [horizontalSpace, verticalSpace, location[0], space]
                     if boardObject.isLegalMove(player, move) == True:
                         if isCheck(board, player, move) == False:
-                            print move
                             return False
     
     return True

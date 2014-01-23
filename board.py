@@ -250,8 +250,6 @@ class Board(object):
         Calls isLegalMoveForRook and isLegalMoveForBishop since queen
         movements are either rook-like or bishop-like
         """
-        ###########
-        return True
         if xor(self._isLegalMoveForRook(move), self._isLegalMoveForBishop(move)) == True:
             return True
         else:
@@ -261,9 +259,6 @@ class Board(object):
         """
         Helper method for determining if move is legal for king.
         """
-        ############
-        return True
-    
         #Allows for horizontal movement
         if (move[0] + 1 == move[2] or move[0] - 1 == move[2]):
             return True
