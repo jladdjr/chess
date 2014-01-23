@@ -87,28 +87,24 @@ class Board(object):
         """
         #a)Tests for whether a piece is not actually moved (e.g. 'a5a5') 
         if move[0:2] == move[2:4]:
-            print "Doesn't work because no piece moved."
             return False
         else:
             validity = True
         
         #b)Tests if there is a piece in the targeted space
         if self._board[move[0]][move[1]] == constants.EMPTY_SYMBOL:
-            print "No piece there."
             return False
         else:
             validity = True
             
         #c)Tests if the game piece is not owned by the current player
         if currentPlayer != self.pieceOwner([move[0], move[1]]):
-            print "Piece not owned by player"
             return False
         else:
             validity = True
        
         #d)Tests if game piece owned by the current player occupies end destination
         if currentPlayer == self.pieceOwner([move[2], move[3]]):
-            print "Endpoint space has piece currently owned by player"
             return False
         else:
             validity = True
