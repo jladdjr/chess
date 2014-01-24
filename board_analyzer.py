@@ -44,7 +44,7 @@ def isCheckMate(board, boardObject, player):
         route[0] = route[0] + location[0]
         route[1] = route[1] + location[1]
         testMove = location + route
-        if testMove[0] not in acceptable or testMove[1] not in acceptable:
+        if testMove[2] not in acceptable or testMove[3] not in acceptable:
             continue
         if boardObject.isLegalMove(player, testMove) == True:
             if isCheck(board, player, testMove) == False:

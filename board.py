@@ -16,7 +16,9 @@ class Board(object):
         # self._board[<col#>][<row#>]
         #
         #See http://i.stack.imgur.com/7KSiN.png
-        #for picture of board layout 
+        #for picture of board layout
+
+        ################################################
         self._board = [ ['r','p','','','','','*p','*r'],
                         ['n','p','','','','','*p','*n'],
                         ['b','p','','','','','*p','*b'],
@@ -143,7 +145,6 @@ class Board(object):
         
         #f)Tests whether current player's move will move current player in check
         if board_analyzer.isCheck(self._board, currentPlayer, move) == True:
-            print "Watch check."
             return False
         else:
             validity = True
