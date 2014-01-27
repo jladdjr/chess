@@ -673,7 +673,7 @@ class ChessTest(unittest.TestCase):
     def test_is_check_mate(self):
         import board_analyzer
         import constants
-        import board
+        from board import Board
 
         board1 = Board()
         board1._board = ChessTest.checkmate1
@@ -687,7 +687,7 @@ class ChessTest(unittest.TestCase):
     def test_is_check_mate_negative(self):
         import board_analyzer
         import constants
-        import board
+        from board import Board
 
         board1 = Board()
         board1._board = ChessTest.checkmate1
