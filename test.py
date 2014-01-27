@@ -262,22 +262,22 @@ class ChessTest(unittest.TestCase):
         self.assertTrue(b.isLegalMove(constants.WHITE_PLAYER, [3, 1, 3, 2]))
         
         #Rook - move forward several spaces
-        self.assertTrue(b.isLegalMove(constants.WHITE_PLAYER, [7, 7, 7, 3]))
+        self.assertTrue(b.isLegalMove(constants.BLACK_PLAYER, [7, 7, 7, 3]))
 
         #Rook - move across several spaces
-        self.assertTrue(b.isLegalMove(constants.WHITE_PLAYER, [7, 7, 3, 7]))
+        self.assertTrue(b.isLegalMove(constants.BLACK_PLAYER, [7, 7, 3, 7]))
 
         #Knight - move forward and right
         self.assertTrue(b.isLegalMove(constants.WHITE_PLAYER, [4, 2, 5, 4]))
 
         #Knight - move left and up
-        self.assertTrue(b.isLegalMove(constants.WHITE_PLAYER, [1, 7, 3, 6]))
+        self.assertTrue(b.isLegalMove(constants.BLACK_PLAYER, [1, 7, 3, 6]))
 
         #Bishop - move diagnoally left
         self.assertTrue(b.isLegalMove(constants.WHITE_PLAYER, [2, 0, 0, 2]))
 
         #Bishop - move back and right
-        self.assertTrue(b.isLegalMove(constants.WHITE_PLAYER, [2, 5, 1, 6]))
+        self.assertTrue(b.isLegalMove(constants.BLACK_PLAYER, [2, 5, 1, 6]))
 
         #Queen - move right one space
         self.assertTrue(b.isLegalMove(constants.WHITE_PLAYER, [3, 3, 4, 3]))
@@ -289,19 +289,19 @@ class ChessTest(unittest.TestCase):
         self.assertTrue(b.isLegalMove(constants.WHITE_PLAYER, [3, 3, 1, 5]))
 
         #King - move forward
-        self.assertTrue(b.isLegalMove(constants.WHITE_PLAYER, [4, 6, 4, 5]))
+        self.assertTrue(b.isLegalMove(constants.BLACK_PLAYER, [4, 6, 4, 5]))
 
         #King - move backward 
-        self.assertTrue(b.isLegalMove(constants.WHITE_PLAYER, [4, 6, 4, 7]))
+        self.assertTrue(b.isLegalMove(constants.BLACK_PLAYER, [4, 6, 4, 7]))
 
         #King - move left 
-        self.assertTrue(b.isLegalMove(constants.WHITE_PLAYER, [4, 6, 5, 6]))
+        self.assertTrue(b.isLegalMove(constants.BLACK_PLAYER, [4, 6, 5, 6]))
 
         #King - move right 
-        self.assertTrue(b.isLegalMove(constants.WHITE_PLAYER, [4, 6, 3, 6]))
+        self.assertTrue(b.isLegalMove(constants.BLACK_PLAYER, [4, 6, 3, 6]))
 
         #King - move right diagonally 
-        self.assertTrue(b.isLegalMove(constants.WHITE_PLAYER, [4, 6, 3, 5]))
+        self.assertTrue(b.isLegalMove(constants.BLACK_PLAYER, [4, 6, 3, 5]))
     
     def test_is_legal_move_improper_movement(self):
         from board import Board
@@ -423,21 +423,21 @@ class ChessTest(unittest.TestCase):
         self.assertTrue(b._isLegalMoveForPawn([7, 1, 7, 3], constants.WHITE_PLAYER))
 
         #Black pawn, forward one space from default position
-        self.assertTrue(b._isLegalMoveForPawn([6, 6, 6, 5], constants.WHITE_PLAYER))
+        self.assertTrue(b._isLegalMoveForPawn([6, 6, 6, 5], constants.BLACK_PLAYER))
         
         #Black pawn, forward two spaces from default position
-        self.assertTrue(b._isLegalMoveForPawn([6, 6, 6, 4], constants.WHITE_PLAYER))
+        self.assertTrue(b._isLegalMoveForPawn([6, 6, 6, 4], constants.BLACK_PLAYER))
 
         #Black pawn, forward one space from non-default position
-        self.assertTrue(b._isLegalMoveForPawn([5, 5, 5, 4], constants.WHITE_PLAYER))
+        self.assertTrue(b._isLegalMoveForPawn([5, 5, 5, 4], constants.BLACK_PLAYER))
 
         b._board = ChessTest.board1
     
         #Legal move to kill
-        self.assertTrue(b._isLegalMoveForPawn([3, 4, 4, 5] ,constants.WHITE_PLAYER))
+        self.assertTrue(b._isLegalMoveForPawn([3, 4, 4, 5], constants.WHITE_PLAYER))
 
         #Legal move to kill 2
-        self.assertTrue(b._isLegalMoveForPawn([3, 4, 2, 5] ,constants.WHITE_PLAYER))
+        self.assertTrue(b._isLegalMoveForPawn([3, 4, 2, 5], constants.WHITE_PLAYER))
     
     def test_is_legal_move_for_pawn_negative_test(self):
         from board import Board
@@ -673,22 +673,36 @@ class ChessTest(unittest.TestCase):
     def test_is_check_mate(self):
         import board_analyzer
         import constants
+        import board
 
-        self.assertTrue(board_analyzer.isCheckMate(ChessTest.checkmate1, constants.WHITE_PLAYER))
-        self.assertTrue(board_analyzer.isCheckMate(ChessTest.checkmate2, constants.BLACK_PLAYER))
+        board1 = Board()
+        board1._board = ChessTest.checkmate1
+
+        board2 = Board()
+        board2._board = ChessTest.checkmate2
+        
+        self.assertTrue(board_analyzer.isCheckMate(board1, constants.WHITE_PLAYER))
+        self.assertTrue(board_analyzer.isCheckMate(board2, constants.BLACK_PLAYER))
 
     def test_is_check_mate_negative(self):
         import board_analyzer
         import constants
+        import board
 
-        self.assertFalse(board_analyzer.isCheckMate(ChessTest.board1, constants.WHITE_PLAYER))
-        self.assertFalse(board_analyzer.isCheckMate(ChessTest.board1, constants.BLACK_PLAYER))
-        self.assertFalse(board_analyzer.isCheckMate(ChessTest.board2, constants.WHITE_PLAYER))
-        self.assertFalse(board_analyzer.isCheckMate(ChessTest.board2, constants.BLACK_PLAYER))
-        self.assertFalse(board_analyzer.isCheckMate(ChessTest.check1, constants.WHITE_PLAYER))
-        self.assertFalse(board_analyzer.isCheckMate(ChessTest.check1, constants.BLACK_PLAYER))
-        self.assertFalse(board_analyzer.isCheckMate(ChessTest.check2, constants.WHITE_PLAYER))
-        self.assertFalse(board_analyzer.isCheckMate(ChessTest.check2, constants.BLACK_PLAYER))
+        board1 = Board()
+        board1._board = ChessTest.checkmate1
+
+        board2 = Board()
+        board2._board = ChessTest.checkmate2
+        
+        self.assertFalse(board_analyzer.isCheckMate(board1, constants.WHITE_PLAYER))
+        self.assertFalse(board_analyzer.isCheckMate(board1, constants.BLACK_PLAYER))
+        self.assertFalse(board_analyzer.isCheckMate(board2, constants.WHITE_PLAYER))
+        self.assertFalse(board_analyzer.isCheckMate(board2, constants.BLACK_PLAYER))
+        self.assertFalse(board_analyzer.isCheckMate(board1, constants.WHITE_PLAYER))
+        self.assertFalse(board_analyzer.isCheckMate(board1, constants.BLACK_PLAYER))
+        self.assertFalse(board_analyzer.isCheckMate(board2, constants.WHITE_PLAYER))
+        self.assertFalse(board_analyzer.isCheckMate(board2, constants.BLACK_PLAYER))
     """
 
     #Tests for isCheck()
