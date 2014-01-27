@@ -19,14 +19,14 @@ class Board(object):
         #for picture of board layout
 
         ################################################
-        self._board = [ ['r','p','','','','','*p','*r'],
-                        ['n','p','','','','','*p','*n'],
-                        ['b','p','','','','','*p','*b'],
-                        ['q','p','','','','','*p','*q'],
-                        ['k','p','','','','','*p','*k'],
-                        ['b','p','','','','','*p','*b'],
-                        ['n','p','','','','','*p','*n'],
-                        ['r','p','','','','','*p','*r'] ]
+        self._board = [ ['r','p','n',''  ,''  ,'*p',''  ,'*r'],
+                       ['' ,'' ,'' ,'p' ,''  ,''  ,'*p',''  ],
+                       ['b','p','' ,''  ,''  ,'*n','*p','*b'],
+                       ['' ,'' ,'' ,'q' ,'p' ,''  ,'*p',''  ],
+                       ['k','p','' ,''  ,''  ,'*p',''  ,'*k'],
+                       ['b','p','n','*q',''  ,''  ,'*p','*b'],
+                       ['' ,'' ,'' ,'p' ,'*p',''  ,''  ,'*n'],
+                       ['r','p','' ,''  ,''  ,''  ,'*p','*r'] ]
 
     def getBoard(self):
         """
@@ -164,28 +164,44 @@ class Board(object):
         if move[1] == move[3]:
             horizontal = True
 
+            #Tests whether piece in path of horizontal movement
+            if move[0] < move[2]:
+                blocked_spaces = 0
+                for space in range(move[0] + 1, move[2]):
+                    if constants.EMPTY_SYMBOL != self._board[space][move[1]]:
+                        blocked_spaces += 1
+                if blocked_spaces == 0:
+                    horizontal_blocking = False
+            else:
+                blocked_spaces = 0
+                for space in range(move[2] + 1, move[0]):
+                    if constants.EMPTY_SYMBOL != self._board[space][move[1]]:
+                        blocked_spaces += 1
+                if blocked_spaces == 0:
+                    horizontal_blocking = False  
+
         #Allows for vertical movement
         if move[0] == move[2]:
             vertical = True
-        
-        #Tests whether piece in path of horizontal movement
-        blocked_spaces = 0
-        for space in range(move[0] + 1, move[2]):
-            if constants.EMPTY_SYMBOL != self._board[space][move[1]]:
-                blocked_spaces += 1
-        if blocked_spaces == 0:
-            horizontal_blocking = True
+            
+            #Tests whether piece in path of vertical movement
+            if move[0] < move[2]: 
+                blocked_spaces = 0
+                for space in range(move[1] + 1, move[3]):
+                    if constants.EMPTY_SYMBOL != self._board[move[0]][space]:
+                        blocked_spaces += 1
+                if blocked_spaces == 0:
+                    vertical_blocking = False
+            else:
+                blocked_spaces = 0
+                for space in range(move[3] + 1, move[1]):
+                    if constants.EMPTY_SYMBOL != self._board[move[0]][space]:
+                        blocked_spaces += 1
+                if blocked_spaces == 0:
+                    vertical_blocking = False
 
-        #Tests whether piece in path of vertical movement
-        blocked_spaces = 0
-        for space in range(move[1] + 1, move[3]):
-            if constants.EMPTY_SYMBOL != self._board[move[0]][space]:
-                blocked_spaces += 1
-        if blocked_spaces == 0:
-            vertical_blocking = True
-
-        if xor((horizontal and horizontal_blocking) == True, \
-            (vertical and vertical_blocking) == True):
+        if xor((horizontal == True and horizontal_blocking == False), \
+            (vertical == True and vertical_blocking == False) == True):
             return True
         else:
             return False
