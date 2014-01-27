@@ -678,7 +678,7 @@ class ChessTest(unittest.TestCase):
         self.assertTrue(board_analyzer.isCheckMate(ChessTest.checkmate2, constants.BLACK_PLAYER))
 
     def test_is_check_mate_negative(self):
-        import board_analzyer
+        import board_analyzer
         import constants
 
         self.assertFalse(board_analyzer.isCheckMate(ChessTest.board1, constants.WHITE_PLAYER))
@@ -695,20 +695,20 @@ class ChessTest(unittest.TestCase):
 
     """
     def test_is_check(self):
-        import board_analzyer
+        import board_analyzer
         import constants
     
-        self.assertTrue(board_analyzer.isCheck(ChessTest.check1, constants.WHITE_PLAYER))
-        self.assertTrue(board_analyzer.isCheck(ChessTest.check2, constants.BLACK_PLAYER))
+        self.assertTrue(board_analyzer.isCheckStatic(ChessTest.check1, constants.WHITE_PLAYER))
+        self.assertTrue(board_analyzer.isCheckStatic(ChessTest.check2, constants.BLACK_PLAYER))
         
     def test_is_check_negative(self):
-        import board_analzyer
+        import board_analyzer
         import constants
 
-        self.assertFalse(board_analyzer.isCheck(ChessTest.board1, constants.WHITE_PLAYER))
-        self.assertFalse(board_analyzer.isCheck(ChessTest.board1, constants.BLACK_PLAYER))
-        self.assertFalse(board_analyzer.isCheck(ChessTest.board2, constants.WHITE_PLAYER))
-        self.assertFalse(board_analyzer.isCheck(ChessTest.board2, constants.BLACK_PLAYER))
+        self.assertFalse(board_analyzer.isCheckStatic(ChessTest.board1, constants.WHITE_PLAYER))
+        self.assertFalse(board_analyzer.isCheckStatic(ChessTest.board1, constants.BLACK_PLAYER))
+        self.assertFalse(board_analyzer.isCheckStatic(ChessTest.board2, constants.WHITE_PLAYER))
+        self.assertFalse(board_analyzer.isCheckStatic(ChessTest.board2, constants.BLACK_PLAYER))
 
 if __name__ == '__main__':
     unittest.main()

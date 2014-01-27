@@ -283,6 +283,8 @@ class Board(object):
         """        
         Helper method for determining if move is legal for pawn.
         """
+        acceptable = [0, 1, 2, 3, 4, 5, 6, 7]
+        
         if currentPlayer == constants.WHITE_PLAYER:
             #Pawns can move up one space at a time
             if self._board[move[0]][move[1] + 1] == constants.EMPTY_SYMBOL:
@@ -290,16 +292,20 @@ class Board(object):
                     return True
             #Pawns can move up two spaces at the start
             if move[1] == 1:
-                if (move[1] + 2 == move[3]) and \
-                   (self._board[move[0]][move[1] + 2] == constants.EMPTY_SYMBOL) and \
-                    move[0] == move[2]:
-                    return True
+                if move[1] + 2 == move[3] and move[0] == move[2]:
+                   if self._board[move[0]][move[1] + 1] == constants.EMPTY_SYMBOL and \
+                      self._board[move[0]][move[1] + 2] == constants.EMPTY_SYMBOL:
+                       return True
             #Allows for NE attack
-            if self.pieceOwner([move[0] + 1, move[1] + 1]) == constants.BLACK_PLAYER:
-                return True
+            if move[0] + 1 in acceptable and move[1] + 1 in acceptable:
+                if move[0] + 1 == move[2] and move[1] + 1 == move[3]:
+                    if self.pieceOwner([move[0] + 1, move[1] + 1]) == constants.BLACK_PLAYER:
+                        return True
             #Allows for NW attack
-            if self.pieceOwner([move[0] - 1, move[1] + 1]) == constants.BLACK_PLAYER:
-                return True
+            if move[0] - 1 in acceptable and move[1] + 1 in acceptable:
+                if move[0] - 1 == move[2] and move[1] + 1 == move[3]:
+                    if self.pieceOwner([move[0] - 1, move[1] + 1]) == constants.BLACK_PLAYER:
+                        return True
             
         elif currentPlayer == constants.BLACK_PLAYER:
             #Pawns can move up one space at a time
@@ -308,16 +314,20 @@ class Board(object):
                     return True
             #Pawns can move up two spaces at the start
             if move[1] == 6:
-                if (move[1] - 2 == move[3]) and \
-                   (self._board[move[0]][move[1] - 2] == constants.EMPTY_SYMBOL) and \
-                   move[0] == move[2]:
-                    return True
+                if move[1] - 2 == move[3] and move[0] == move[2]:
+                    if self._board[move[0]][move[1] - 1] == constants.EMPTY_SYMBOL and \
+                       self._board[move[0]][move[1] - 2] == constants.EMPTY_SYMBOL:
+                        return True
             #Allows for NE attack
-            if self.pieceOwner([move[0] + 1, move[1] - 1]) == constants.BLACK_PLAYER:
-                return True            
+            if move[0] + 1 in acceptable and move[1] - 1 in acceptable:
+                if move[0] + 1 == move[2] and move[1] - 1 == move[3]:
+                    if self.pieceOwner([move[0] + 1, move[1] - 1]) == constants.BLACK_PLAYER:
+                        return True            
             #Allows for NW attack
-            if self.pieceOwner([move[0] - 1, move[1] - 1]) == constants.BLACK_PLAYER:
-                return True
+            if move[0] - 1 in acceptable and move[1] - 1 in acceptable:
+                if move[0] - 1 == move[2] and move[1] - 1 == move[3]:
+                    if self.pieceOwner([move[0] - 1, move[1] - 1]) == constants.BLACK_PLAYER:
+                        return True
 
         return False
 

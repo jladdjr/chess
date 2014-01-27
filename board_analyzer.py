@@ -23,7 +23,7 @@ def kingLocator(board, player):
                 
     return location
 
-def isCheckMate(board, boardObject, player):
+def isCheckMate(board, player):
     """
     Determines if game has ended.
 
@@ -31,11 +31,12 @@ def isCheckMate(board, boardObject, player):
     @param player:  Player (e.g. constants.WHITE_PLAYER)
     @return True if game has ended, False otherwise.
     """
-    location = kingLocator(board, player)
+    boardCopy = board.getBoard()
+    location = kingLocator(boardCopy, player)
     acceptable = [0, 1, 2, 3, 4, 5, 6, 7]
-
+    
     #Tests if king is in check
-    if isCheckStatic(board, player) == False:
+    if isCheckStatic(boardCopy, player) == False:
         return False
 
     #Tests if king can move/attack out of check
@@ -46,54 +47,54 @@ def isCheckMate(board, boardObject, player):
         testMove = location + route
         if testMove[2] not in acceptable or testMove[3] not in acceptable:
             continue
-        if boardObject.isLegalMove(player, testMove) == True:
-            if isCheck(board, player, testMove) == False:
+        if board.isLegalMove(player, testMove) == True:
+            if isCheck(boardCopy, player, testMove) == False:
                 return False
 
     #Tests if king can get blocked out of check - for NE/SW diagonal
-    if isCheckByDiagonal(location, board, player) == True:
-        for space in range(-len(board), len(board)):
-            for horizontalSpace in range(len(board)):
-                for verticalSpace in range(len(board)):
+    if isCheckByDiagonal(location, boardCopy, player) == True:
+        for space in range(-len(boardCopy), len(boardCopy)):
+            for horizontalSpace in range(len(boardCopy)):
+                for verticalSpace in range(len(boardCopy)):
                     if location[0] + space not in acceptable or \
                        location[1] + space not in acceptable:
                         continue
                     move = [horizontalSpace, verticalSpace, location[0] + space, location[1] + space]
-                    if boardObject.isLegalMove(player, move) == True:
-                        if isCheck(board, player, move) == False:
+                    if board.isLegalMove(player, move) == True:
+                        if isCheck(boardCopy, player, move) == False:
                             return False
                    
     #Tests if king can get blocked out of check - for NW/SE diagonal
-    if isCheckByDiagonal(location, board, player) == True:
-        for space in range(-len(board), len(board)):
-            for horizontalSpace in range(len(board)):
-                for verticalSpace in range(len(board)):
+    if isCheckByDiagonal(location, boardCopy, player) == True:
+        for space in range(-len(boardCopy), len(boardCopy)):
+            for horizontalSpace in range(len(boardCopy)):
+                for verticalSpace in range(len(boardCopy)):
                     if location[0] + space not in acceptable or \
                        location[1] + space not in acceptable:
                         continue
                     move = [horizontalSpace, verticalSpace, location[0] - space, location[1] + space]
-                    if boardObject.isLegalMove(player, move) == True:
-                        if isCheck(board, player, move) == False:
+                    if board.isLegalMove(player, move) == True:
+                        if isCheck(boardCopy, player, move) == False:
                             return False
     
     #Tests if king can get blocked out of check - for horizontal check
-    if isCheckByHorizontal(location, board, player) == True:
-        for space in range(len(board)):
-            for horizontalSpace in range(len(board)):
-                for verticalSpace in range(len(board)):
+    if isCheckByHorizontal(location, boardCopy, player) == True:
+        for space in range(len(boardCopy)):
+            for horizontalSpace in range(len(boardCopy)):
+                for verticalSpace in range(len(boardCopy)):
                     move = [horizontalSpace, verticalSpace, space, location[1]]
-                    if boardObject.isLegalMove(player, move) == True:
-                        if isCheck(board, player, move) == False:
+                    if board.isLegalMove(player, move) == True:
+                        if isCheck(boardCopy, player, move) == False:
                             return False
                     
     #Tests if king can get blocked out of check - for vertical check
-    if isCheckByVertical(location, board, player) == True:
-        for space in range(len(board)):
-            for horizontalSpace in range(len(board)):
-                for verticalSpace in range(len(board)):
+    if isCheckByVertical(location, boardCopy, player) == True:
+        for space in range(len(boardCopy)):
+            for horizontalSpace in range(len(boardCopy)):
+                for verticalSpace in range(len(boardCopy)):
                     move = [horizontalSpace, verticalSpace, location[0], space]
-                    if boardObject.isLegalMove(player, move) == True:
-                        if isCheck(board, player, move) == False:
+                    if board.isLegalMove(player, move) == True:
+                        if isCheck(boardCopy, player, move) == False:
                             return False
     
     return True

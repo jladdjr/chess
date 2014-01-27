@@ -66,8 +66,7 @@ class Game(object):
             self._otherPlayer = constants.WHITE_PLAYER
         
         #End game conditions
-        board = self._board.getBoard()
-        if board_analyzer.isCheckMate(board, self._board, self._otherPlayer) == True:
+        if board_analyzer.isCheckMate(self._board, self._otherPlayer) == True:
             print "Player",self._currentPlayer,"has won the game!"
             choice = None
             while choice != 'quit':
