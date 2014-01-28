@@ -123,7 +123,7 @@ class ChessTest(unittest.TestCase):
                        ['n','p',''  ,''  ,''  ,''  ,'*p','*n'],
                        ['r','p',''  ,''  ,'*r',''  ,''  ,''  ] ]
 
-    checkmate2     = [ ['' ,'' ,'' ,'' ,''  ,''  ,'*b',''],
+    checkmate2     = [ ['k' ,'' ,'' ,'' ,''  ,''  ,'*b',''],
                        ['' ,'' ,'' ,'' ,''  ,''  ,''  ,''],
                        ['' ,'' ,'' ,'' ,'q' ,''  ,''  ,''],
                        ['' ,'' ,'' ,'' ,''  ,'*k',''  ,''],
@@ -298,10 +298,10 @@ class ChessTest(unittest.TestCase):
         self.assertTrue(b.isLegalMove(constants.BLACK_PLAYER, [4, 6, 5, 6]))
 
         #King - move right 
-        self.assertTrue(b.isLegalMove(constants.BLACK_PLAYER, [4, 6, 3, 6]))
+        self.assertTrue(b.isLegalMove(constants.BLACK_PLAYER, [4, 6, 5, 6]))
 
         #King - move right diagonally 
-        self.assertTrue(b.isLegalMove(constants.BLACK_PLAYER, [4, 6, 3, 5]))
+        self.assertTrue(b.isLegalMove(constants.BLACK_PLAYER, [4, 6, 5, 7]))
     
     def test_is_legal_move_improper_movement(self):
         from board import Board
