@@ -115,8 +115,8 @@ class ChessTest(unittest.TestCase):
                        ['' ,'p',''  ,''  ,''  ,''  ,''  ,''  ] ]
 
     checkmate1     = [ ['r','p','*r',''  ,''  ,''  ,'*p',''  ],
-                       ['n','' ,''  ,''  ,''  ,''  ,'*p','*n'],
-                       ['b','p',''  ,''  ,''  ,'*q','*p','*b'],
+                       ['n','' ,''  ,''  ,''  ,'*b','*p','*n'],
+                       ['b','p',''  ,''  ,''  ,'*q','*p',''  ],
                        ['q','p' ,'' ,'k' ,''  ,''  ,'*p',''  ],
                        ['' ,'p',''  ,''  ,''  ,''  ,'*p','*k'],
                        ['b','p',''  ,''  ,''  ,''  ,'*p','*b'],
@@ -690,10 +690,10 @@ class ChessTest(unittest.TestCase):
         from board import Board
 
         board1 = Board()
-        board1._board = ChessTest.checkmate1
+        board1._board = ChessTest.board1
 
         board2 = Board()
-        board2._board = ChessTest.checkmate2
+        board2._board = ChessTest.board2
         
         self.assertFalse(board_analyzer.isCheckMate(board1, constants.WHITE_PLAYER))
         self.assertFalse(board_analyzer.isCheckMate(board1, constants.BLACK_PLAYER))
